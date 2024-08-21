@@ -1,5 +1,0 @@
-com\lpthinh\configs\WebApplicationContextConfig.class
-com\lpthinh\project\JakartaRestConfiguration.class
-com\lpthinh\project\resources\JakartaEE10Resource.class
-com\lpthinh\controllers\CommonController.class
-com\lpthinh\configs\DispatcherServletInitializer.class
