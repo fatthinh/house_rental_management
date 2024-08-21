@@ -1,6 +1,6 @@
 create table if not exists agreement
 (
-    agreeement_id     varchar(255) not null primary key,
+    agreement_id     varchar(255) not null primary key,
     agreement_deposit numeric(12, 0),
     agreement_state   varchar(64),
     start_date        date,

@@ -7,8 +7,9 @@ import java.time.LocalDate;
 import java.util.List;
 
 public record AgreementRequest(
+        String id,
         BigDecimal deposit,
-        LocalDate startDate,
+        String startDate,
         Integer houseId,
         List<Tenant> tenants
 ) {
