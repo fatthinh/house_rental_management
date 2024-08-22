@@ -19,7 +19,7 @@ public class SecurityConfig {
                 .authorizeExchange(exchange ->
                         exchange.pathMatchers("/eureka/**")
                                 .permitAll()
-                                .pathMatchers("/api/v1/houses/**")
+                                .pathMatchers("/api/v1/**")
                                 .permitAll()
                                 .anyExchange()
                                 .authenticated())

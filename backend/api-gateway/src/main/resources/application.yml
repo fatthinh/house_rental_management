@@ -15,7 +15,7 @@ spring:
         - id: agreement-service
           uri: http://localhost:8090
           predicates:
-            - Path= /api/v1/agreement/**
+            - Path= /api/v1/**
 
   security:
     oauth2:

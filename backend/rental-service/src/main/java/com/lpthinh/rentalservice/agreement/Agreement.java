@@ -3,11 +3,11 @@ package com.lpthinh.rentalservice.agreement;
 import com.lpthinh.rentalservice.tenant.Tenant;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @AllArgsConstructor
@@ -26,7 +26,6 @@ public class Agreement {
     @Column(name = "agreement_state")
     private String state;
     @Column(name = "start_date")
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private LocalDate startDate;
     @Column(name = "created_date")
     private LocalDateTime createdDate;
