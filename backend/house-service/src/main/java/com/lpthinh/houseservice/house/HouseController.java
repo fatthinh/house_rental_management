@@ -8,16 +8,16 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/houses")
+@RequestMapping("/api/v1/house")
 @RequiredArgsConstructor
 public class HouseController {
     private final HouseService service;
 
     @PostMapping
-    public ResponseEntity<Integer> createHouse(
+    public ResponseEntity<Integer> create(
             @RequestBody @Valid HouseRequest request
     ) {
-        return ResponseEntity.ok(this.service.createHouse(request));
+        return ResponseEntity.ok(this.service.create(request));
     }
 
     @GetMapping
@@ -31,7 +31,7 @@ public class HouseController {
     }
 
     @PutMapping
-    public ResponseEntity<Void> updateHouse(@RequestBody @Valid HouseRequest request) {
+    public ResponseEntity<Void> update(@RequestBody @Valid HouseRequest request) {
         this.service.update(request);
         return ResponseEntity.accepted().build();
     }

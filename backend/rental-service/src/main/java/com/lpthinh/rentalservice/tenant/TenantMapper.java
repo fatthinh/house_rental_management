@@ -18,6 +18,7 @@ public class TenantMapper {
         return Tenant
                 .builder()
                 .name(request.name())
+                .gender(request.gender() == 0 ? TenantGender.MALE : TenantGender.FEMALE)
                 .dob(dob)
                 .hometown(request.hometown())
                 .citizenId(request.citizenId())

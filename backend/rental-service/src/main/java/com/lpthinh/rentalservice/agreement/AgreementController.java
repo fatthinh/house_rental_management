@@ -25,14 +25,14 @@ public class AgreementController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createHouse(
+    public ResponseEntity<String> create(
             @RequestBody @Valid AgreementRequest request
     ) {
         return ResponseEntity.ok(this.service.create(request));
     }
 
     @PutMapping
-    public ResponseEntity<Void> updateHouse(@RequestBody @Valid AgreementRequest request) {
+    public ResponseEntity<Void> update(@RequestBody @Valid AgreementRequest request) {
         this.service.update(request);
         return ResponseEntity.accepted().build();
     }

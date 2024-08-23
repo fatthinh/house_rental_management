@@ -25,14 +25,14 @@ public class TenantController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createHouse(
+    public ResponseEntity<String> create(
             @RequestBody @Valid TenantRequest request
     ) {
         return ResponseEntity.ok(this.service.create(request));
     }
 
     @PutMapping
-    public ResponseEntity<Void> updateHouse(@RequestBody @Valid TenantRequest request) {
+    public ResponseEntity<Void> update(@RequestBody @Valid TenantRequest request) {
         this.service.update(request);
         return ResponseEntity.accepted().build();
     }

@@ -23,8 +23,9 @@ public class Agreement {
     private String id;
     @Column(name = "agreement_deposit")
     private BigDecimal deposit;
+    @Enumerated(EnumType.STRING)
     @Column(name = "agreement_state")
-    private String state;
+    private AgreementState state;
     @Column(name = "start_date")
     private LocalDate startDate;
     @Column(name = "created_date")

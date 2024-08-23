@@ -24,11 +24,14 @@ public class House {
     @Column(name = "house_price")
     private BigDecimal price;
     @Column(name = "house_state")
-    private String state;
+    @Enumerated(EnumType.STRING)
+    private HouseState state;
 
     @OneToMany
+    @JoinColumn(name = "house_id")
     List<Photo> photos;
 
     @OneToMany
+    @JoinColumn(name = "house_id")
     List<HouseAmenity> amenities;
 }

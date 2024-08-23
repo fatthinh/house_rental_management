@@ -10,7 +10,7 @@ public record HouseResponse(
         Integer id,
         String name,
         BigDecimal price,
-        String state,
+        HouseState state,
         List<HouseAmenity> amenities,
         List<Photo> photos
 ) {

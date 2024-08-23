@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -16,6 +18,11 @@ public class AgreementService {
 
     public String create(AgreementRequest request) {
         var agreement = mapper.toAgreement(request);
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate date = LocalDate.parse(request.startDate(), formatter);
+
+        agreement.setState(date.compareTo(LocalDate.now()) == 0 ? AgreementState.ACTIVE : AgreementState.PENDING);
         return this.repository.save(agreement).getId();
     }
 

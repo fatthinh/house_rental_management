@@ -18,6 +18,8 @@ public class TenantService {
 
     public String create(TenantRequest request) {
         var tenant = mapper.toTenant(request);
+
+        tenant.setState(TenantState.GOOD);
         return this.repository.save(tenant).getId();
     }
 
@@ -59,6 +61,9 @@ public class TenantService {
             LocalDate dob = LocalDate.parse(request.dob(), formatter);
 
             tenant.setDob(dob);
+        }
+        if (request.gender() != null) {
+            tenant.setGender(request.gender() == 0 ? TenantGender.MALE : TenantGender.FEMALE);
         }
         if (StringUtils.isNotBlank(request.hometown())) {
             tenant.setHometown(request.hometown());

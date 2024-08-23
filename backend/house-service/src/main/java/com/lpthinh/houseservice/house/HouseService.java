@@ -15,10 +15,12 @@ public class HouseService {
     private final HouseRepository repository;
     private final HouseMapper mapper;
 
-    public Integer createHouse(
+    public Integer create(
             HouseRequest request
     ) {
         var house = mapper.toHouse(request);
+        house.setState(HouseState.AVAILABLE);
+        
         return this.repository.save(house).getId();
     }
 

@@ -10,7 +10,7 @@ import java.util.List;
 public record AgreementResponse(
         String id,
         BigDecimal deposit,
-        String state,
+        AgreementState state,
         LocalDate startDate,
         LocalDateTime createdDate,
         Integer houseId,

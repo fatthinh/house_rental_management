@@ -2,10 +2,10 @@ create table if not exists invoice
 (
     invoice_id     varchar(255) not null primary key,
     invoice_amount numeric(12, 0),
-    invoice_month  integer,
+    invoice_month  int,
     invoice_state  varchar(64),
     created_at     timestamp,
-    agreement_id   integer
+    agreement_id   varchar(255)
 );
 
 create table if not exists transaction

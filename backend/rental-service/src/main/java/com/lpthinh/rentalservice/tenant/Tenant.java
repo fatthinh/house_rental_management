@@ -20,11 +20,13 @@ public class Tenant {
     @Column(name = "tenant_name")
     private String name;
     @Column(name = "tenant_state")
-    private String state;
+    @Enumerated(EnumType.STRING)
+    private TenantState state;
     @Column(name = "tenant_dob")
     private LocalDate dob;
     @Column(name = "tenant_gender")
-    private String gender;
+    @Enumerated(EnumType.STRING)
+    private TenantGender gender;
     @Column(name = "tenant_hometown")
     private String hometown;
     @Column(name = "citizen_id")

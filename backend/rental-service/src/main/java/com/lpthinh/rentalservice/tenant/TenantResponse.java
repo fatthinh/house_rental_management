@@ -5,9 +5,9 @@ import java.time.LocalDate;
 public record TenantResponse(
         String id,
         String name,
-        String state,
+        TenantState state,
         LocalDate dob,
-        String gender,
+        TenantGender gender,
         String hometown,
         String citizenId
 ) {

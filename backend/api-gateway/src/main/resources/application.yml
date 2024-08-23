@@ -11,11 +11,15 @@ spring:
         - id: house-service
           uri: http://localhost:8060
           predicates:
-            - Path= /api/v1/houses/**
+            - Path=/api/v1/house/**
         - id: agreement-service
           uri: http://localhost:8090
           predicates:
-            - Path= /api/v1/**
+            - Path=/api/v1/agreement/**
+        - id: payment-service
+          uri: http://localhost:8050
+          predicates:
+            - Path=/api/v1/payment/**
 
   security:
     oauth2:
