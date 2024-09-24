@@ -3,8 +3,6 @@ package com.lpthinh.rentalservice.tenant;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 
 @Component
 public class TenantMapper {
@@ -12,16 +10,14 @@ public class TenantMapper {
         if (request == null)
             return null;
 
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate dob = LocalDate.parse(request.dob(), formatter);
-
         return Tenant
                 .builder()
                 .name(request.name())
                 .gender(request.gender() == 0 ? TenantGender.MALE : TenantGender.FEMALE)
-                .dob(dob)
+                .dob(LocalDate.parse(request.dob()))
                 .hometown(request.hometown())
                 .citizenId(request.citizenId())
+                .phone(request.phone())
                 .build();
     }
 
@@ -32,9 +28,11 @@ public class TenantMapper {
                 tenant.getName(),
                 tenant.getState(),
                 tenant.getDob(),
-                tenant.getGender(),
+                tenant.getGender() == TenantGender.MALE ? "Nam" : "Nữ",
                 tenant.getHometown(),
-                tenant.getCitizenId()
+                tenant.getCitizenId(),
+                tenant.getPhone(),
+                tenant.getAgreement().getHouseId()
         );
     }
 }

@@ -10,14 +10,14 @@
       <user-name>lpthinh</user-name>
       <schema-mapping>
         <introspection-scope>
-          <node negative="1">
-            <node kind="database">
-              <name qname="housedb" />
-              <name qname="paymentdb" />
-              <name qname="rentaldb" />
-              <node kind="schema" qname="public" />
-            </node>
-            <node kind="database" qname="userdb" />
+          <node kind="database">
+            <name qname="busdb" />
+            <name qname="housedb" />
+            <name qname="identitydb" />
+            <name qname="paymentdb" />
+            <name qname="rentaldb" />
+            <name qname="servicedb" />
+            <node kind="schema" qname="public" />
           </node>
         </introspection-scope>
       </schema-mapping>

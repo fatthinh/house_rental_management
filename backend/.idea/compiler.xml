@@ -11,14 +11,17 @@
         <module name="discovery-server" />
         <module name="payment-service" />
         <module name="house-service" />
+        <module name="service-service" />
         <module name="api-gateway" />
-        <module name="utility-service" />
         <module name="rental-service" />
+        <module name="identity-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="backend" target="21" />
       <module name="gateway-service" target="21" />
+      <module name="GhostEyeFX" target="1.8" />
+      <module name="identityservice" target="21" />
       <module name="rental-server" target="21" />
     </bytecodeTargetLevel>
   </component>
@@ -29,10 +32,11 @@
       <module name="discovery-server" options="-parameters" />
       <module name="gateway-service" options="-parameters" />
       <module name="house-service" options="-parameters" />
+      <module name="identity-service" options="-parameters" />
       <module name="payment-service" options="-parameters" />
       <module name="rental-server" options="-parameters" />
       <module name="rental-service" options="-parameters" />
-      <module name="utility-service" options="-parameters" />
+      <module name="service-service" options="-parameters" />
     </option>
   </component>
 </project>

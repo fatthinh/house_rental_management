@@ -8,8 +8,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/tenant")
+@RequestMapping("/api/v1/rental/tenant")
 @RequiredArgsConstructor
+//@CrossOrigin(origins = "http://localhost:5173", maxAge = 3600)
 public class TenantController {
 
     private final TenantService service;

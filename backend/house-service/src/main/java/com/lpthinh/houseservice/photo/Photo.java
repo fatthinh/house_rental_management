@@ -13,7 +13,8 @@ import lombok.*;
 @Table(name = "house_photo")
 public class Photo {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "photo_seq_gen")
+    @SequenceGenerator(name = "photo_seq_gen", sequenceName = "photo_seq", allocationSize = 1)
     @Column(name = "photo_id")
     private Integer id;
     @Column(name = "photo_src")

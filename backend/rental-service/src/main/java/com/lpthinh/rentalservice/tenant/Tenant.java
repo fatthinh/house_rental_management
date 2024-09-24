@@ -19,6 +19,8 @@ public class Tenant {
     private String id;
     @Column(name = "tenant_name")
     private String name;
+    @Column(name = "tenant_phone")
+    private String phone;
     @Column(name = "tenant_state")
     @Enumerated(EnumType.STRING)
     private TenantState state;

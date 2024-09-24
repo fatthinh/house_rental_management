@@ -10,6 +10,7 @@ import Transactions from './transactions';
 import Settings from './settings';
 import TabButton from '~/components/navigation/TabButton';
 import NewsFeed from './newsfeed';
+import Scanner from './scanner';
 
 const Tab = createBottomTabNavigator();
 

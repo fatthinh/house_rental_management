@@ -1,10 +1,12 @@
 package com.lpthinh.paymentservice.invoice;
 
+import com.lpthinh.paymentservice.service.ServiceResponse;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @AllArgsConstructor
@@ -15,11 +17,12 @@ import java.time.LocalDateTime;
 @Entity
 public class Invoice {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "invoice_seq_gen")
+    @SequenceGenerator(name = "invoice_seq_gen", sequenceName = "invoice_seq", allocationSize = 1)
     @Column(name = "invoice_id")
-    private String id;
+    private Integer id;
     @Column(name = "invoice_amount")
-    private BigDecimal amount;
+    private Long amount;
     @Column(name = "invoice_month")
     @Enumerated(EnumType.ORDINAL)
     private InvoiceMonth month;
@@ -29,5 +32,13 @@ public class Invoice {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
     @Column(name = "agreement_id")
-    private String agreementId;
+    private Integer agreementId;
+
+    @Transient
+    private String houseName;
+    @Transient
+    private Long housePrice;
+    @Transient
+    private List<ServiceResponse> services;
+
 }

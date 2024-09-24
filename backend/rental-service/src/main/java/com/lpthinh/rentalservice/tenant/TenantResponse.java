@@ -1,5 +1,7 @@
 package com.lpthinh.rentalservice.tenant;
 
+import com.lpthinh.rentalservice.agreement.Agreement;
+
 import java.time.LocalDate;
 
 public record TenantResponse(
@@ -7,8 +9,10 @@ public record TenantResponse(
         String name,
         TenantState state,
         LocalDate dob,
-        TenantGender gender,
+        String genderString,
         String hometown,
-        String citizenId
+        String citizenId,
+        String phone,
+        Integer houseId
 ) {
 }

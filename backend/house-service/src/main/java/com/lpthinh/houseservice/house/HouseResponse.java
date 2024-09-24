@@ -9,9 +9,10 @@ import java.util.List;
 public record HouseResponse(
         Integer id,
         String name,
-        BigDecimal price,
-        HouseState state,
-        List<HouseAmenity> amenities,
-        List<Photo> photos
+        Long price,
+        String state,
+        String description,
+        Integer floor,
+        Float size
 ) {
 }

@@ -4,6 +4,7 @@ import com.lpthinh.houseservice.amenity.Amenity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
+
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
@@ -14,7 +15,8 @@ import java.time.LocalDateTime;
 @Entity
 public class HouseAmenity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "house_amenity_seq_gen")
+    @SequenceGenerator(name = "house_amenity_seq_gen", sequenceName = "house_amenity_seq", allocationSize = 1)
     private Integer id;
     private Integer quantity;
     @CreatedDate

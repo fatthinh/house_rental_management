@@ -1,5 +1,6 @@
 package com.lpthinh.paymentservice.invoice;
 
+import com.lpthinh.paymentservice.rental.HouseResponse;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -21,10 +22,13 @@ public class InvoiceMapper {
         return new InvoiceResponse(
                 invoice.getId(),
                 invoice.getAmount(),
-                invoice.getMonth(),
+                invoice.getMonth().ordinal() + 1,
                 invoice.getState(),
                 invoice.getCreatedAt(),
-                invoice.getAgreementId()
+                invoice.getAgreementId(),
+                invoice.getHouseName(),
+                invoice.getHousePrice(),
+                invoice.getServices()
         );
     }
 }

@@ -20,7 +20,7 @@ public class HouseService {
     ) {
         var house = mapper.toHouse(request);
         house.setState(HouseState.AVAILABLE);
-        
+
         return this.repository.save(house).getId();
     }
 
@@ -32,11 +32,27 @@ public class HouseService {
                 .collect(Collectors.toList());
     }
 
+    public List<HouseResponse> findByState(String state) {
+        return this.repository
+                .findAll()
+                .stream()
+                .filter(item -> item.getState().equals(HouseState.valueOf(state.toUpperCase())))
+                .map(mapper::toHouseResponse)
+                .collect(Collectors.toList());
+    }
+
     public HouseResponse findById(Integer id) {
         return this.repository.findById(id)
                 .stream()
                 .map(mapper::toHouseResponse)
                 .findFirst().orElseThrow(() -> new HouseNotFoundException("House not found with ID:: " + id));
+    }
+
+    public void changeState(String newState, Integer id) {
+        House house = this.repository.findById(id)
+                .orElseThrow(() -> new HouseNotFoundException("House not found with id " + id));
+        house.setState(HouseState.valueOf(newState.toUpperCase()));
+        this.repository.save(house);
     }
 
     public void update(HouseRequest request) {

@@ -18,3 +18,9 @@ spring:
     baseline-version: 0
     user: ${spring.datasource.username}
     password: ${spring.datasource.password}
+
+application:
+  config:
+    house-url: http://localhost:8222/api/v1/house
+    rental-url: http://localhost:8222/api/v1/rental
+    service-url: http://localhost:8222/api/v1/service

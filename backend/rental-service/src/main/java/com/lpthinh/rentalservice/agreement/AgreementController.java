@@ -6,27 +6,28 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
-@RequestMapping("/api/v1/agreement")
+@RequestMapping("/api/v1/rental/agreement")
 @RequiredArgsConstructor
 public class AgreementController {
 
     private final AgreementService service;
 
     @GetMapping
-    public ResponseEntity<List<AgreementResponse>> findAll() {
-        return ResponseEntity.ok(this.service.findAll());
+    public ResponseEntity<List<AgreementResponse>> findAll(@RequestParam Map<String, String> params) {
+        return ResponseEntity.ok(this.service.findAll(params));
     }
 
     @GetMapping("/{agreement-id}")
-    public ResponseEntity<AgreementResponse> findById(@PathVariable("agreement-id") String id) {
+    public ResponseEntity<AgreementResponse> findById(@PathVariable("agreement-id") Integer id) {
         return ResponseEntity.ok(this.service.findById(id));
     }
 
     @PostMapping
-    public ResponseEntity<String> create(
-            @RequestBody @Valid AgreementRequest request
+    public ResponseEntity<Integer> create(
+            @RequestBody @Valid NewAgreementRequest request
     ) {
         return ResponseEntity.ok(this.service.create(request));
     }
@@ -38,7 +39,7 @@ public class AgreementController {
     }
 
     @DeleteMapping("/{agreement-id}")
-    public ResponseEntity<Void> deleteById(@PathVariable("agreement-id") String agreementId) {
+    public ResponseEntity<Void> deleteById(@PathVariable("agreement-id") Integer agreementId) {
         this.service.delete(agreementId);
         return ResponseEntity.accepted().build();
     }

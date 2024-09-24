@@ -18,11 +18,12 @@ import java.util.List;
 @Entity
 public class Agreement {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "agreement_seq_gen")
+    @SequenceGenerator(name = "agreement_seq_gen", sequenceName = "agreement_seq", allocationSize = 1)
     @Column(name = "agreement_id")
-    private String id;
+    private Integer id;
     @Column(name = "agreement_deposit")
-    private BigDecimal deposit;
+    private Long deposit;
     @Enumerated(EnumType.STRING)
     @Column(name = "agreement_state")
     private AgreementState state;
@@ -30,6 +31,8 @@ public class Agreement {
     private LocalDate startDate;
     @Column(name = "created_date")
     private LocalDateTime createdDate;
+    @Column(name = "representer")
+    private String representer;
 
     //    Foreign key
     @Column(name = "house_id")
@@ -38,4 +41,10 @@ public class Agreement {
     @OneToMany
     @JoinColumn(name = "agreement_id")
     private List<Tenant> tenants;
+
+    //    Transient fields
+    @Transient
+    private String houseName;
+    @Transient
+    private Long housePrice;
 }

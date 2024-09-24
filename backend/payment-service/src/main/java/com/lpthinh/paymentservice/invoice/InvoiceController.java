@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/payment/invoice")
@@ -18,20 +19,34 @@ public class InvoiceController {
     private final InvoiceService service;
 
     @GetMapping
-    public ResponseEntity<List<InvoiceResponse>> findAll() {
-        return ResponseEntity.ok(this.service.findAll());
+    public ResponseEntity<List<InvoiceResponse>> findAll(@RequestParam Map<String, String> params) {
+        return ResponseEntity.ok(this.service.findAll(params));
     }
 
     @GetMapping("/{invoice-id}")
-    public ResponseEntity<InvoiceResponse> findById(@PathVariable("invoice-id") String id) {
+    public ResponseEntity<InvoiceResponse> findById(@PathVariable("invoice-id") Integer id) {
         return ResponseEntity.ok(this.service.findById(id));
     }
 
+    @PutMapping("/{invoice-id}/{state}")
+    public ResponseEntity<Void> changeState(@PathVariable("invoice-id") Integer id, @PathVariable("state") String state) {
+        this.service.changeState(id, state);
+        return ResponseEntity.accepted().build();
+    }
+
     @PostMapping
-    public ResponseEntity<String> create(
+    public ResponseEntity<Integer> create(
             @RequestBody @Valid InvoiceRequest request
     ) {
         return ResponseEntity.ok(this.service.create(request));
+    }
+
+    @PostMapping("/{invoice-id}/updateAmount")
+    public ResponseEntity<Void> updateAmount(
+            @PathVariable("invoice-id") Integer id
+    ) {
+        this.service.updateAmount(id);
+        return ResponseEntity.accepted().build();
     }
 
     @PutMapping
@@ -41,7 +56,7 @@ public class InvoiceController {
     }
 
     @DeleteMapping("/{invoice-id}")
-    public ResponseEntity<Void> deleteById(@PathVariable("invoice-id") String invoiceId) {
+    public ResponseEntity<Void> deleteById(@PathVariable("invoice-id") Integer invoiceId) {
         this.service.delete(invoiceId);
         return ResponseEntity.accepted().build();
     }

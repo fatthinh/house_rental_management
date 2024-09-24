@@ -1,14 +1,20 @@
 package com.lpthinh.paymentservice.invoice;
 
+import com.lpthinh.paymentservice.service.ServiceResponse;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 public record InvoiceResponse(
-        String id,
-        BigDecimal amount,
-        InvoiceMonth month,
+        Integer id,
+        Long amount,
+        Integer month,
         InvoiceState state,
         LocalDateTime createdAt,
-        String agreementId
+        Integer agreementId,
+        String houseName,
+        Long housePrice,
+        List<ServiceResponse> services
 ) {
 }

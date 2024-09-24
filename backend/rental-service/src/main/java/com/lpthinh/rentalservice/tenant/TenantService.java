@@ -1,8 +1,11 @@
 package com.lpthinh.rentalservice.tenant;
 
+import com.lpthinh.rentalservice.agreement.AgreementRepository;
+import com.lpthinh.rentalservice.agreement.AgreementService;
 import com.lpthinh.rentalservice.exception.TenantNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -15,11 +18,13 @@ import java.util.stream.Collectors;
 public class TenantService {
     private final TenantRepository repository;
     private final TenantMapper mapper;
+    private final AgreementRepository agreementRepository;
 
     public String create(TenantRequest request) {
         var tenant = mapper.toTenant(request);
-
         tenant.setState(TenantState.GOOD);
+        tenant.setAgreement(agreementRepository.findByHouseId(request.houseId()));
+
         return this.repository.save(tenant).getId();
     }
 
@@ -57,10 +62,7 @@ public class TenantService {
             tenant.setName(request.name());
         }
         if (StringUtils.isNotBlank(request.dob())) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            LocalDate dob = LocalDate.parse(request.dob(), formatter);
-
-            tenant.setDob(dob);
+            tenant.setDob(LocalDate.parse(request.dob()));
         }
         if (request.gender() != null) {
             tenant.setGender(request.gender() == 0 ? TenantGender.MALE : TenantGender.FEMALE);
@@ -71,6 +73,8 @@ public class TenantService {
         if (StringUtils.isNotBlank(request.citizenId())) {
             tenant.setCitizenId(request.citizenId());
         }
-
+        if (StringUtils.isNotBlank(request.phone())) {
+            tenant.setPhone(request.phone());
+        }
     }
 }

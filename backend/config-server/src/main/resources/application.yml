@@ -10,3 +10,7 @@ spring:
       server:
         native:
           search-locations: classpath:/configurations
+        bootstrap: true
+        git:
+          uri: https://github.com/fatthinh/house_rental_management.git
+

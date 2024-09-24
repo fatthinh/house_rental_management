@@ -25,6 +25,11 @@ public class HouseController {
         return ResponseEntity.ok(this.service.findAll());
     }
 
+    @GetMapping("/state/{state}")
+    public ResponseEntity<List<HouseResponse>> findByState(@PathVariable("state") String state) {
+        return ResponseEntity.ok(this.service.findByState(state));
+    }
+
     @GetMapping("/{house-id}")
     public ResponseEntity<HouseResponse> findById(@PathVariable("house-id") Integer houseId) {
         return ResponseEntity.ok(this.service.findById(houseId));
@@ -33,6 +38,12 @@ public class HouseController {
     @PutMapping
     public ResponseEntity<Void> update(@RequestBody @Valid HouseRequest request) {
         this.service.update(request);
+        return ResponseEntity.accepted().build();
+    }
+
+    @PutMapping("/{house-id}/{new-state}")
+    public ResponseEntity<Void> updateState(@PathVariable("house-id") Integer houseId, @PathVariable("new-state") String newState) {
+        this.service.changeState(newState, houseId);
         return ResponseEntity.accepted().build();
     }
 

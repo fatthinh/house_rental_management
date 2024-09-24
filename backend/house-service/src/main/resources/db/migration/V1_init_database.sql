@@ -1,9 +1,12 @@
 create table if not exists house
 (
-    house_id    integer not null primary key,
-    house_name  varchar(255) unique,
-    house_price numeric(12, 0),
-    house_state varchar(64)
+    house_id          integer not null primary key,
+    house_name        varchar(255) unique,
+    house_price       bigint,
+    house_state       varchar(64),
+    house_floor       integer,
+    house_description text,
+    house_size        float
 );
 
 create table if not exists house_photo
@@ -32,8 +35,7 @@ create table if not exists house_amenity
         constraint fk_amenity references amenity
 );
 
-create sequence if not exists house_seq increment by 50;
-create sequence if not exists photo_seq increment by 50;
-create sequence if not exists amenity_seq increment by 50;
-create sequence if not exists house_amenity_seq increment by 50;
-create sequence if not exists house_photo_seq increment by 50;
+create sequence if not exists house_seq;
+create sequence if not exists photo_seq;
+create sequence if not exists amenity_seq;
+create sequence if not exists house_amenity_seq;
