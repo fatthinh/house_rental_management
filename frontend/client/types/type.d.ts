@@ -1,3 +1,5 @@
+import { AxiosRequestConfig } from "axios";
+
 declare interface Payment {
   id: string;
   amount: number;
@@ -16,4 +18,20 @@ declare interface ButtonProps extends TouchableOpacityProps {
   IconLeft?: React.ComponentType<any>;
   IconRight?: React.ComponentType<any>;
   className?: string;
+}
+
+declare interface InputFieldProps extends TextInputProps {
+  label: string;
+  icon?: any;
+  secureTextEntry?: boolean;
+  labelStyle?: string;
+  containerStyle?: string;
+  inputStyle?: string;
+  iconStyle?: string;
+  className?: string;
+}
+
+declare interface useAxiosProps {
+  axiosParams: AxiosRequestConfig;
+  trigger: any;
 }

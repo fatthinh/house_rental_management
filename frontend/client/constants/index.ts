@@ -30,14 +30,14 @@ import noResult from "@/assets/images/no-result.png";
 import onboarding1 from "@/assets/images/onboarding1.png";
 import onboarding2 from "@/assets/images/onboarding2.png";
 import onboarding3 from "@/assets/images/onboarding3.png";
-import signUpCar from "@/assets/images/signup-car.png";
+import signIn from "@/assets/images/signIn.png";
 
 export const images = {
   onboarding1,
   onboarding2,
   onboarding3,
   getStarted,
-  signUpCar,
+  signIn,
   check,
   noResult,
   message,
@@ -74,23 +74,21 @@ export const icons = {
 export const onboarding = [
   {
     id: 1,
-    title: "The perfect ride is just a tap away!",
-    description:
-      "Your journey begins with Ryde. Find your ideal ride effortlessly.",
+    title: "Chào mừng bạn!",
+    description: "Một ngôi nhà mới sẽ mang lại nhiều trải nghiệm tuyệt vời.",
     image: images.onboarding1,
   },
   {
     id: 2,
-    title: "Best car in your hands with Ryde",
+    title: "Về chúng tôi",
     description:
-      "Discover the convenience of finding your perfect ride with Ryde",
+      "Cung cấp các tiện ích nhanh chóng, chính xác ngay trên chiếc điện thoại của bạn.",
     image: images.onboarding2,
   },
   {
     id: 3,
-    title: "Your ride, your way. Let's go!",
-    description:
-      "Enter your destination, sit back, and let us take care of the rest.",
+    title: "Bắt đầu thôi!",
+    description: "Hãy tận hưởng những khoảnh khắc mà chúng tôi mang lại.",
     image: images.onboarding3,
   },
 ];

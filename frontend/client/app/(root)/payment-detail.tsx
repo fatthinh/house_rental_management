@@ -1,17 +1,29 @@
-import { router } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import { StyleSheet, Image, Platform, View, Text, TouchableOpacity, FlatList, Alert } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { images, icons } from '@/constants';
 import { LinearGradient } from 'expo-linear-gradient';
 import { StripeProvider, useStripe } from '@stripe/stripe-react-native';
-import { useState } from 'react';
+import axios, { baseConfig, endpoints } from '@/api/axios';
 import { fetchAPI } from '@/lib/fetch';
 import ReactNativeModal from 'react-native-modal';
-import CustomButton from '@/components/CustomButton';
+import Button from '@/components/Button';
+import React, { useState } from 'react';
+import useAxios from '@/hooks/useAxios';
+import { formatDate } from '@/lib/utils';
+import callApi from '@/api/call';
 
 export default function PaymentDetail() {
     const { initPaymentSheet, presentPaymentSheet } = useStripe();
     const [success, setSuccess] = useState<boolean>(false);
+    const { paymentId } = useLocalSearchParams();
+    const { response } = useAxios({
+        method: "GET",
+        url: `${baseConfig.baseURL}${endpoints.singleInvoice(Number(paymentId))}`,
+        headers: {
+            Accept: "*/*"
+        }
+    });
 
     const openPaymentSheet = async () => {
         await initializePaymentSheet();
@@ -30,7 +42,7 @@ export default function PaymentDetail() {
             merchantDisplayName: "fatthinh, Inc.",
             intentConfiguration: {
                 mode: {
-                    amount: 2832000,
+                    amount: response?.data.amount,
                     currencyCode: "vnd",
                 },
                 confirmHandler: async (
@@ -38,41 +50,40 @@ export default function PaymentDetail() {
                     shouldSavePaymentMethod,
                     intentCreationCallback,
                 ) => {
-                    const { intentClientSecret, intentId, customer } = await fetchAPI(
-                        "http://192.168.100.108:8222/api/v1/payment/checkout/integrated",
-                        {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json",
-                            },
-                            body: JSON.stringify({
-                                name: "fatthinh",
-                                email: "pthinh.lama@gmail.com",
-                                amount: 2832000,
-                                paymentMethodId: paymentMethod.id,
-                            }),
+                    const integratedRes = await callApi({
+                        endpoint: `${baseConfig.baseURL}${endpoints.integrated}`,
+                        data: {
+                            name: response?.data.houseName,
+                            email: "pthinh.lama@gmail.com",
+                            amount: response?.data.amount,
+                            paymentMethodId: paymentMethod.id,
                         },
-                    );
-
-                    const res = await fetchAPI(
-                        "http://192.168.100.108:8222/api/v1/payment/checkout/pay",
-                        {
-                            method: "POST",
+                        config: {
                             headers: {
-                                "Content-Type": "application/json",
-                            },
-                            body: JSON.stringify({
-                                paymentMethodId: paymentMethod.id,
-                                paymentIntentId: intentId,
-                                customerId: customer
-                            }),
+                                "Content-Type": "application/json"
+                            }
                         },
-                    );
+                        method: "POST"
+                    });
 
-                    if (res) {
+                    const payRes = await callApi({
+                        endpoint: `${baseConfig.baseURL}${endpoints.pay}`,
+                        data: {
+                            paymentMethodId: paymentMethod.id,
+                            paymentIntentId: integratedRes?.data.intentId,
+                            invoiceId: paymentId
+                        },
+                        config: {
+                            headers: {
+                                "Content-Type": "application/json"
+                            }
+                        },
+                        method: "POST"
+                    });
+
+                    if (payRes?.status == 200) {
                         intentCreationCallback({
-                            clientSecret: intentClientSecret,
-
+                            clientSecret: integratedRes?.data.intentClientSecret,
                         })
                     }
                 },
@@ -86,7 +97,7 @@ export default function PaymentDetail() {
     };
 
     return (
-        <>
+        <React.Fragment>
             <StripeProvider
                 publishableKey={process.env.EXPO_PUBLIC_STRIPE_PUBLISHABLE_KEY!}
                 merchantIdentifier='merchant.lpthinh.com'
@@ -112,24 +123,29 @@ export default function PaymentDetail() {
                                     <Image source={images.check} className='w-8 h-8' />
                                     <View className="px-4">
                                         <Text className='uppercase font-light'>Số tiền</Text>
-                                        <Text className="text-lg">2,832,000</Text>
+                                        <Text className="text-lg">{response?.data.amount.toLocaleString()}</Text>
                                     </View>
                                 </View>
                                 <View className="flex justify-between items-center flex-row mt-3 px-4" >
-                                    <Text className="font-light">Trạng thái</Text>
-                                    <Text className="font-JakartaBold text-xs bg-success-400 px-3 py-1 text-white rounded-md">Đã thanh toán</Text>
-                                </View>
-                                <View className="flex justify-between items-center flex-row mt-3 px-4" >
-                                    <Text className="font-light">Thời gian</Text>
-                                    <Text className="font-JakartaBold text-xs ">00:32 - 18/09/2024</Text>
+                                    <Text className="font-light">Mã hóa đơn</Text>
+                                    <Text className="fon t-JakartaBold text-xs">#{response?.data.id}</Text>
                                 </View>
                                 <View className="flex justify-between items-center flex-row mt-3 px-4" >
                                     <Text className="font-light">Tháng</Text>
-                                    <Text className="fon t-JakartaBold text-xs">10</Text>
+                                    <Text className="fon t-JakartaBold text-xs">{response?.data.month}</Text>
                                 </View>
+                                {response?.data.state == "UNPAID" && <>
+                                    <View className="flex justify-between items-center flex-row mt-3 px-4" >
+                                        <Text className="font-light">Thời gian</Text>
+                                        <Text className="font-JakartaBold text-xs ">{formatDate(response?.data.createdAt)}</Text>
+                                    </View>
+                                    <View className="flex justify-between items-center flex-row mt-3 px-4" >
+                                        <Text className="font-light">Mã giao dịch</Text>
+                                        <Text className="font-JakartaBold text-xs ">1674128793</Text>
+                                    </View></>}
                                 <View className="flex justify-between items-center flex-row mt-3 px-4" >
-                                    <Text className="font-light">Mã giao dịch</Text>
-                                    <Text className="font-JakartaBold text-xs ">1674128793</Text>
+                                    <Text className="font-light">Trạng thái</Text>
+                                    <Text className={`font-JakartaBold text-xs ${response?.data.state == "PAID" ? "bg-success-400" : "bg-neutral-400"} px-3 py-1 text-white rounded-md`}>{response?.data.state == "PAID" ? "Đã thanh toán" : "Chưa thanh toán"}</Text>
                                 </View>
                                 <TouchableOpacity className="bg-primary-300 py-3 mt-4 rounded-b-2xl">
                                     <Text className="text-center font-JakartaBold text-xs">Liên hệ hỗ trợ</Text>
@@ -161,7 +177,7 @@ export default function PaymentDetail() {
                     </Text>
 
 
-                    <CustomButton
+                    <Button
                         title="Xác nhận"
                         onPress={() => {
                             setSuccess(false);
@@ -171,8 +187,6 @@ export default function PaymentDetail() {
                     />
                 </View>
             </ReactNativeModal>
-        </>
-
-
+        </React.Fragment>
     );
 }

@@ -17,6 +17,7 @@ import java.util.Map;
 public class InvoiceController {
 
     private final InvoiceService service;
+    private final InvoiceMapper mapper;
 
     @GetMapping
     public ResponseEntity<List<InvoiceResponse>> findAll(@RequestParam Map<String, String> params) {
@@ -25,7 +26,7 @@ public class InvoiceController {
 
     @GetMapping("/{invoice-id}")
     public ResponseEntity<InvoiceResponse> findById(@PathVariable("invoice-id") Integer id) {
-        return ResponseEntity.ok(this.service.findById(id));
+        return ResponseEntity.ok(this.mapper.toInvoiceResponse(this.service.findById(id)));
     }
 
     @PutMapping("/{invoice-id}/{state}")

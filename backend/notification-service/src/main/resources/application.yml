@@ -1,0 +1,28 @@
+spring:
+  config:
+    import: optional:configserver:http://localhost:8888
+  application:
+    name: notification-service
+    mail:
+      host: localhost
+      port: 1025
+      username: lpthinh
+      password: lpthinh
+      properties:
+        mail:
+          smtp:
+            trust: "*"
+            auth: true
+            starttls:
+              enabled: true
+              required: true
+          connectiontimeout: 5000
+          timeout: 3000
+          writetimeout: 5000
+
+#  spring.mail.host=smtp.xxx.com
+#  spring.mail.username=xxx@xxx.com
+#  spring.mail.password=xxxxx
+#  spring.mail.properties.mail.smtp.auth=true
+#  spring.mail.properties.mail.smtp.starttls.enable=true
+#  spring.mail.properties.mail.smtp.starttls.required=true

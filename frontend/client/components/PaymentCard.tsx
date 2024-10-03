@@ -3,15 +3,13 @@ import { Image, Text, View } from "react-native";
 import { icons, images } from '@/constants';
 // import { formatDate, formatTime } from "@/lib/utils";
 import { Payment } from "@/types/type";
-import { formatDate, formatTime } from "@/lib/utils";
+import { formatDate } from "@/lib/utils";
 import { Link } from "expo-router";
 
 const PaymentCard = ({ payment }: { payment: Payment }) => {
   return (
     <View className="flex flex-row items-center justify-center bg-white rounded-lg shadow-sm shadow-neutral-300 mb-3">
       <View className="flex flex-col items-start justify-center p-3">
-
-
         <View className="flex flex-row items-center gap-x-2">
           <Image source={icons.point} className="w-5 h-5" />
           <Text className="text-md font-JakartaMedium" numberOfLines={1}>
@@ -25,7 +23,7 @@ const PaymentCard = ({ payment }: { payment: Payment }) => {
               Ngày tạo
             </Text>
             <Text className="text-md font-JakartaBold" numberOfLines={1}>
-              {formatDate(Date())}, {formatTime(455)}
+              {formatDate(Date())}
             </Text>
           </View>
 

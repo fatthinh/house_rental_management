@@ -8,14 +8,17 @@ create table if not exists invoice
     agreement_id   int not null
 );
 
-create table if not exists transaction
+create table if not exists payment
 (
-    transaction_id     varchar(255) not null primary key,
-    transaction_amount bigint,
-    created_at         timestamp,
-    invoice_id         int          not null
-        constraint fk_invoice_transction references invoice
+    payment_id     int not null primary key,
+    payment_amount bigint,
+    created_at     timestamp,
+    transaction_id varchar(255),
+    payment_method varchar(32),
+    payment_state  smallint,
+    invoice_id     int not null
+        constraint fk_invoice_payment references invoice
 );
 
 create sequence if not exists invoice_seq;
-create sequence if not exists transaction_seq;
+create sequence if not exists payment_seq;

@@ -95,7 +95,23 @@ public class InvoiceService {
                 .collect(Collectors.toList());
     }
 
-    public InvoiceResponse findById(Integer id) {
+//    public InvoiceResponse findById(Integer id) {
+//        return this.repository
+//                .findById(id)
+//                .stream()
+//                .peek(item -> {
+//                    var agreement = rentalClient.getAgreementById(item.getAgreementId());
+//                    var serviceResponse = serviceClient.getByInvoiceId(item.getId());
+//                    item.setHouseName(agreement.houseName());
+//                    item.setHousePrice(agreement.housePrice());
+//                    item.setServices(serviceResponse);
+//                })
+//                .map(mapper::toInvoiceResponse)
+//                .findFirst()
+//                .orElseThrow(() -> new InvoiceNotFoundException("Invoice not found with ID:: " + id));
+//    }
+
+    public Invoice findById(Integer id) {
         return this.repository
                 .findById(id)
                 .stream()
@@ -106,7 +122,6 @@ public class InvoiceService {
                     item.setHousePrice(agreement.housePrice());
                     item.setServices(serviceResponse);
                 })
-                .map(mapper::toInvoiceResponse)
                 .findFirst()
                 .orElseThrow(() -> new InvoiceNotFoundException("Invoice not found with ID:: " + id));
     }

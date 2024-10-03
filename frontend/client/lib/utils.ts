@@ -10,25 +10,36 @@
 //   return result.reverse();
 // };
 
-export function formatTime(minutes: number): string {
-  const formattedMinutes = +minutes?.toFixed(0) || 0;
+// export function formatTime(minutes: number): string {
+//   const formattedMinutes = +minutes?.toFixed(0) || 0;
 
-  if (formattedMinutes < 60) {
-    return `${minutes} min`;
-  } else {
-    const hours = Math.floor(formattedMinutes / 60);
-    const remainingMinutes = formattedMinutes % 60;
-    return `${hours}h ${remainingMinutes}m`;
-  }
-}
+//   if (formattedMinutes < 60) {
+//     return `${minutes} min`;
+//   } else {
+//     const hours = Math.floor(formattedMinutes / 60);
+//     const remainingMinutes = formattedMinutes % 60;
+//     return `${hours}h ${remainingMinutes}m`;
+//   }
+// }
 
-export function formatDate(dateString: string): string {
-  const date = new Date(dateString);
-  const day = date.getDate();
-  const year = date.getFullYear();
-  const month = date.getMonth();
+// export function formatDate(dateString: string): string {
+//   const date = new Date(dateString);
+//   const day = date.getDate();
+//   const year = date.getFullYear();
+//   const month = date.getMonth();
 
-  return `${day < 10 ? "0" + day : day}/${
-    month < 10 ? "0" + month : month
-  }/${year}`;
-}
+//   return `${day < 10 ? "0" + day : day}/${
+//     month < 10 ? "0" + month : month
+//   }/${year}`;
+// }
+
+
+export const formatDate = (isoString: string): string => {
+  const date = new Date(isoString);
+  const time = date.toLocaleTimeString("en-GB", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+  const formattedDate = date.toLocaleDateString("en-GB");
+  return `${time} - ${formattedDate}`;
+};

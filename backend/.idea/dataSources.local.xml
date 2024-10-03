@@ -22,5 +22,19 @@
         </introspection-scope>
       </schema-mapping>
     </data-source>
+    <data-source name="mongo@localhost" uuid="5b240d08-8261-4828-ba22-cf0e33bbf0a6">
+      <database-info product="Mongo DB" version="7.0.12" jdbc-version="4.2" driver-name="MongoDB JDBC Driver" driver-version="1.18" dbms="MONGO" exact-version="7.0.12" exact-driver-version="1.18" />
+      <case-sensitivity plain-identifiers="mixed" quoted-identifiers="mixed" />
+      <secret-storage>master_key</secret-storage>
+      <user-name>lpthinh</user-name>
+      <schema-mapping>
+        <introspection-scope>
+          <node kind="schema">
+            <name qname="admin" />
+            <name qname="notification" />
+          </node>
+        </introspection-scope>
+      </schema-mapping>
+    </data-source>
   </component>
 </project>

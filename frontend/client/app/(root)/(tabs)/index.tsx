@@ -1,11 +1,24 @@
-import { StatusBar } from 'expo-status-bar';
 import { View, Text, FlatList, Image, TouchableOpacity, TextInput } from 'react-native';
 
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { images, icons } from '@/constants';
+import { icons } from '@/constants';
 import PostCard from '@/components/PostCard';
+import { router } from 'expo-router';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useEffect } from 'react';
+import { useAppDispatch } from '@/hooks/redux';
+import { authSlice } from '@/redux/slides/authSlice';
 
 export default function Home() {
+  const dispatch = useAppDispatch()
+
+
+  const signOut = async () => {
+    await AsyncStorage.removeItem("token");
+    router.navigate("/(auth)/sign-in")
+    dispatch(authSlice.actions.logout());
+  }
+
   return (
     <SafeAreaView className="bg-general-500">
       <FlatList
@@ -34,6 +47,7 @@ export default function Home() {
               </Text>
               <TouchableOpacity
                 className="justify-center items-center w-10 h-10 rounded-full bg-white"
+                onPress={signOut}
               >
                 <Image source={icons.out} className="w-4 h-4" />
               </TouchableOpacity>
