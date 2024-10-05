@@ -6,7 +6,7 @@ import { HiOutlineRefresh } from 'react-icons/hi';
 
 //import
 import React, { useState } from 'react';
-import Dropdown from '../components/DropDown';
+import Dropdown from '@/components/DropDown';
 import {
     Chart as ChartJS,
     LinearScale,
