@@ -6,7 +6,7 @@ import { HiOutlineRefresh } from 'react-icons/hi';
 
 //import
 import React, { useState } from 'react';
-import Dropdown from '@/components/DropDown';
+import Dropdown from '@/components/Dropdown';
 import {
     Chart as ChartJS,
     LinearScale,
@@ -20,7 +20,6 @@ import {
     BarController,
 } from 'chart.js';
 import { Chart } from 'react-chartjs-2';
-import { useStompClient, useSubscription } from 'react-stomp-hooks';
 import { useSelector } from 'react-redux';
 import { dataSelector } from '../redux/selectors';
 
