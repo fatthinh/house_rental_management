@@ -2,13 +2,13 @@ import Header from '@/components/Header';
 import Table from '@/components/Table';
 import PageWrapper from '@/components/PageWrapper';
 import Spinner from '@/components/Spinner';
-import { endpoints } from '@/configs/API';
-import { useAxios } from '@/hooks/useAxios';
+import { useSelector } from 'react-redux';
+import { dataSelector } from './../redux/selectors';
 
 export const fields = [
     {
         field: 'id',
-        label: 'Id',
+        label: 'Mã',
     },
     {
         field: 'houseName',
@@ -29,22 +29,19 @@ export const fields = [
 ];
 
 const InvoiceList = () => {
-    const { response, error, loading } = useAxios({
-        method: 'GET',
-        url: endpoints.invoice,
-    });
+    const { invoice: payload } = useSelector(dataSelector);
 
     return (
         <PageWrapper>
             {/* Header */}
-            <Header category="Danh sách" title="Cư dân" />
-            {loading ? (
+            <Header category="Danh sách" title="Hóa đơn" />
+            {payload.loading ? (
                 <div className="flex justify-center">
                     <Spinner size={52} />
                 </div>
             ) : (
                 <>
-                    <Table data={response} fields={fields} toDetail="/invoices" />
+                    <Table data={payload.data} fields={fields} toDetail="/invoices" />
                     {/* <Paginator /> */}
                 </>
             )}

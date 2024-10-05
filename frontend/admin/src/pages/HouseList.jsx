@@ -4,20 +4,13 @@ import { useAxios } from '@/hooks/useAxios';
 import { endpoints } from '@/configs/API';
 import Spinner from '@/components/Spinner';
 import PageWrapper from '@/components/PageWrapper';
-
-const data = [
-    {
-        id: '23489712471',
-        name: 'C02',
-        price: 2100000,
-        status: 'active',
-    },
-];
+import { useSelector } from 'react-redux';
+import { dataSelector } from './../redux/selectors';
 
 const fields = [
     {
         field: 'id',
-        label: 'id',
+        label: 'Mã',
     },
     {
         field: 'name',
@@ -38,22 +31,19 @@ const fields = [
 ];
 
 const HouseList = () => {
-    const { response, error, loading } = useAxios({
-        url: endpoints.house,
-        method: 'GET',
-    });
+    const { house: payload } = useSelector(dataSelector);
 
     return (
         <PageWrapper>
             {/* Header */}
             <Header category="Danh sách" title="Phòng" />
-            {loading ? (
+            {payload.loading ? (
                 <div className="flex justify-center">
                     <Spinner size={52} />
                 </div>
             ) : (
                 <>
-                    <Table data={response} fields={fields} toDetail="/houses" />
+                    <Table data={payload.data} fields={fields} toDetail="/houses" />
                     {/* <Paginator /> */}
                 </>
             )}

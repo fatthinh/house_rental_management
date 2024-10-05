@@ -5,11 +5,13 @@ import { useAxios } from '@/hooks/useAxios';
 import Spinner from '@/components/Spinner';
 import Paginator from '../components/Paginator';
 import PageWrapper from '@/components/PageWrapper';
+import { useSelector } from 'react-redux';
+import { dataSelector } from './../redux/selectors';
 
 const fields = [
     {
         field: 'id',
-        label: 'id',
+        label: 'Mã',
     },
     {
         field: 'name',
@@ -30,22 +32,19 @@ const fields = [
 ];
 
 const TenantList = () => {
-    const { response, error, loading } = useAxios({
-        method: 'GET',
-        url: 'rental/tenant',
-    });
+    const { tenant: payload } = useSelector(dataSelector);
 
     return (
         <PageWrapper>
             {/* Header */}
             <Header category="Danh sách" title="Cư dân" path="/tenants/new" />
-            {loading ? (
+            {payload.loading ? (
                 <div className="flex justify-center">
                     <Spinner size={52} />
                 </div>
             ) : (
                 <>
-                    <Table data={response} fields={fields} toDetail="/tenants" />
+                    <Table data={payload.data} fields={fields} toDetail="/tenants" />
                     {/* <Paginator /> */}
                 </>
             )}

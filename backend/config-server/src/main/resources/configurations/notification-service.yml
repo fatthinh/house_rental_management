@@ -7,7 +7,7 @@ spring:
       password: lpthinh
       host: localhost
       port: 27017
-      database: notification
+      database: notificationdb
       authentication-database: admin
   kafka:
     consumer:

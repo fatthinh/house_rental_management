@@ -31,7 +31,7 @@
         <introspection-scope>
           <node kind="schema">
             <name qname="admin" />
-            <name qname="notification" />
+            <name qname="notificationdb" />
           </node>
         </introspection-scope>
       </schema-mapping>

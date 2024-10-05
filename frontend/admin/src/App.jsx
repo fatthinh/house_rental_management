@@ -10,6 +10,9 @@ import { useEffect, useState } from 'react';
 import NotificationToast from './components/NotificationToast';
 import { useSubscription } from 'react-stomp-hooks';
 import appSlice from './redux/slices/appSlice';
+import { endpoints } from '@/configs/API';
+import dataSlice from './redux/slices/dataSlice';
+import { useAxios } from './hooks/useAxios';
 
 const PrivateRoute = ({ element: Element, ...rest }) => {
     const { isAuthenticated, loading } = useSelector(authSelector);
@@ -21,6 +24,41 @@ const PrivateRoute = ({ element: Element, ...rest }) => {
 };
 
 function App() {
+    // load state
+    const {
+        response: houseData,
+        error: houseError,
+        loading: houseLoading,
+    } = useAxios({
+        method: 'GET',
+        url: endpoints.house,
+    });
+    const {
+        response: agreementData,
+        error: agreementError,
+        loading: agreementLoading,
+    } = useAxios({
+        method: 'GET',
+        url: endpoints.agreement,
+    });
+    const {
+        response: invoiceData,
+        error: invoiceError,
+        loading: invoiceLoading,
+    } = useAxios({
+        method: 'GET',
+        url: endpoints.invoice,
+    });
+    const {
+        response: tenantData,
+        error: tenantError,
+        loading: tenantLoading,
+    } = useAxios({
+        method: 'GET',
+        url: endpoints.tenant,
+    });
+
+    // -----
     const { activeMenu, toast } = useSelector(appSelector);
     const dispatch = useDispatch();
     const [newNotification, setNewNotification] = useState();
@@ -29,14 +67,33 @@ function App() {
         setNewNotification(JSON.parse(notification.body));
     });
 
+    // init
     useEffect(() => {
-        console.log(newNotification['body'])
         dispatch(appSlice.actions.toggleToast({ toastName: 'newNotification' }));
     }, [newNotification]);
 
     useEffect(() => {
         dispatch(authenticateAsync());
     }, [dispatch]);
+
+    useEffect(() => {
+        console.log('rerender');
+        dispatch(dataSlice.actions.loadHouse({ error: houseError, loading: houseLoading, data: houseData }));
+    }, [houseData]);
+
+    useEffect(() => {
+        dispatch(
+            dataSlice.actions.loadAgreement({ error: agreementError, loading: agreementLoading, data: agreementData }),
+        );
+    }, [agreementData]);
+
+    useEffect(() => {
+        dispatch(dataSlice.actions.loadTenant({ error: tenantError, loading: tenantLoading, data: tenantData }));
+    }, [tenantData]);
+
+    useEffect(() => {
+        dispatch(dataSlice.actions.loadInvoice({ error: invoiceError, loading: invoiceLoading, data: invoiceData }));
+    }, [invoiceData]);
 
     return (
         <Router>
@@ -66,12 +123,14 @@ function App() {
                                         </div>
                                     </div>
 
-                                    <NotificationToast
-                                        message={newNotification['body']}
-                                        title={newNotification['subject']}
-                                        time={new Date()}
-                                        visible={toast.newNotification}
-                                    />
+                                    {newNotification && (
+                                        <NotificationToast
+                                            message={newNotification['body']}
+                                            title={newNotification['subject']}
+                                            time={new Date()}
+                                            visible={toast.newNotification}
+                                        />
+                                    )}
                                 </div>
                             }
                         />

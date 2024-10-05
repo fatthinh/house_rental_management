@@ -3,11 +3,10 @@ import Form from './../components/Form/Form';
 import PageWrapper from './../components/PageWrapper';
 import Button from '../components/Button';
 import { useState, useEffect } from 'react';
-import API, { endpoints } from '@/configs/API';
-import { Navigate, useNavigate } from 'react-router-dom';
+import API from '@/configs/API';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import authSlice from '@/redux/slices/authSlice';
-import cookie from 'react-cookies';
 import { authSelector } from '@/redux/selectors';
 
 const SignIn = () => {

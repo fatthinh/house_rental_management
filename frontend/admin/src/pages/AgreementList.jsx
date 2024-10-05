@@ -1,18 +1,17 @@
 import Header from '@/components/Header';
 import Table from '@/components/Table';
-import Paginator from '../components/Paginator';
-import { useAxios } from './../hooks/useAxios';
-import { endpoints } from '@/configs/API';
 import Spinner from '@/components/Spinner';
 import PageWrapper from '@/components/PageWrapper';
+import { useSelector } from 'react-redux';
+import { dataSelector } from '../redux/selectors';
 
 const fields = [
     {
         field: 'id',
-        label: 'id',
+        label: 'Mã',
     },
     {
-        field: 'houseId',
+        field: 'houseName',
         label: 'Tên phòng',
     },
     {
@@ -30,22 +29,19 @@ const fields = [
 ];
 
 const AgreementList = () => {
-    const { response, error, loading } = useAxios({
-        method: 'GET',
-        url: endpoints.agreement,
-    });
+    const { agreement: payload } = useSelector(dataSelector);
 
     return (
         <PageWrapper>
             {/* Header */}
             <Header category="Danh sách" title="Hợp đồng" path="/agreements/new" />
-            {loading ? (
+            {payload.loading ? (
                 <div className="flex justify-center">
                     <Spinner size={52} />
                 </div>
             ) : (
                 <>
-                    <Table data={response} fields={fields} toDetail="/agreements" />
+                    <Table data={payload.data} fields={fields} toDetail="/agreements" />
                     {/* <Paginator /> */}
                 </>
             )}

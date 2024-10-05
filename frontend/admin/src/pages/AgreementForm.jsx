@@ -51,9 +51,8 @@ const AgreementForm = () => {
                     gender: state.genderString === 'Nam' ? 0 : 1,
                 });
 
-                const houseRes = await API.put(`${endpoints.house}/${houseId}/reserved`);
-                if (res.status == '200' && houseRes.status == '202') {
-                    navigate(`agreement/${res.data}`);
+                if (res.status == '200') {
+                    navigate(`/agreements/${res.data}`);
                 }
             }
         } catch (error) {}

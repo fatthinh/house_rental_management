@@ -16,6 +16,7 @@ create table if not exists payment
     transaction_id varchar(255),
     payment_method varchar(32),
     payment_state  smallint,
+    payment_actor varchar(255),
     invoice_id     int not null
         constraint fk_invoice_payment references invoice
 );

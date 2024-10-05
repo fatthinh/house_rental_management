@@ -36,7 +36,7 @@ public class InvoiceService {
             InvoiceRequest request = new InvoiceRequest(
                     null,
                     null,
-                    LocalDate.now().getMonthValue() + 1,
+                    LocalDate.now().getMonthValue(),
                     agreement.id());
             this.create(request);
         }

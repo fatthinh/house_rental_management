@@ -47,6 +47,7 @@ public class AgreementService {
                 request.houseId()));
 
         savedAgreement.setRepresenter(tenantId);
+        this.houseClient.updateState(request.houseId(), "reserved");
         return this.repository.save(savedAgreement).getId();
     }
 
@@ -62,6 +63,10 @@ public class AgreementService {
         return this.repository
                 .findAll()
                 .stream()
+                .peek(item -> {
+                    var houseInfo = houseClientService.getHouseById(item.getHouseId());
+                    item.setHouseName(houseInfo.name());
+                })
                 .map(mapper::toAgreementResponse)
                 .collect(Collectors.toList());
     }

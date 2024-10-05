@@ -42,6 +42,12 @@ public class InvoiceController {
         return ResponseEntity.ok(this.service.create(request));
     }
 
+    @PostMapping("/createAll")
+    public ResponseEntity<Void> createAll() {
+        this.service.createByAgreements();
+        return ResponseEntity.ok().build();
+    }
+
     @PostMapping("/{invoice-id}/updateAmount")
     public ResponseEntity<Void> updateAmount(
             @PathVariable("invoice-id") Integer id

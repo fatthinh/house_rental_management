@@ -72,7 +72,6 @@ public class PaymentService {
         // send notification
         Map<String, Object> details = new HashMap<>();
         details.put("amount", paymentIntent.getAmount());
-//        details.put("currency", paymentIntent.getCurrency());
         details.put("transaction", paymentIntent.getId());
 
         notificationProducer.sendNotification(

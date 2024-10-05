@@ -21,6 +21,8 @@ import {
 } from 'chart.js';
 import { Chart } from 'react-chartjs-2';
 import { useStompClient, useSubscription } from 'react-stomp-hooks';
+import { useSelector } from 'react-redux';
+import { dataSelector } from '../redux/selectors';
 
 ChartJS.register(
     LinearScale,
@@ -58,6 +60,7 @@ export const earningData = [
         iconColor: '#03C9D7',
         iconBg: '#E5FAFB',
         pcColor: 'red-600',
+        name: 'tenant',
     },
     {
         icon: <BsBoxSeam />,
@@ -66,6 +69,7 @@ export const earningData = [
         iconColor: 'rgb(255, 244, 229)',
         iconBg: 'rgb(254, 201, 15)',
         pcColor: 'green-600',
+        name: 'house',
     },
     {
         icon: <HiOutlineRefresh />,
@@ -74,6 +78,7 @@ export const earningData = [
         iconColor: 'rgb(0, 194, 146)',
         iconBg: 'rgb(235, 250, 242)',
         pcColor: 'red-600',
+        name: 'agreement',
     },
     {
         icon: <FiBarChart />,
@@ -81,12 +86,14 @@ export const earningData = [
         title: 'Doanh thu tháng 10',
         iconColor: 'rgb(228, 106, 118)',
         iconBg: 'rgb(255, 244, 229)',
-
         pcColor: 'green-600',
+        name: 'revenue',
     },
 ];
 
 const Home = () => {
+    const payload = useSelector(dataSelector);
+
     return (
         <div className="mt-2 max-w-full">
             <div className="flex flex-wrap lg:flex-nowrap justify-center ">
@@ -102,7 +109,7 @@ const Home = () => {
                                 {item.icon}
                                 <span className="text-sm text-gray-400">{item.title}</span>
                             </button>
-                            <span className="px-4 items-end text-lg font-semibold">{item.amount}</span>
+                            <span className="px-4 items-end text-lg font-semibold">{payload[item.name]?.data?.length}</span>
                         </div>
                     ))}
                 </div>

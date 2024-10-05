@@ -8,9 +8,9 @@ const Table = ({ data, fields, toDetail }) => {
                 <div className="p-1.5 min-w-full inline-block align-middle">
                     <div className="border rounded-lg divide-y divide-gray-200">
                         <SearchBox />
-                        <div className="overflow-hidden">
+                        <div className="overflow-auto max-h-[420px]" >
                             <table className="min-w-full divide-y divide-gray-200">
-                                <thead className="bg-gray-50">
+                                <thead className="bg-gray-50 sticky top-0">
                                     <tr>
                                         {fields.map((item) => (
                                             <th

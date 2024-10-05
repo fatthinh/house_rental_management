@@ -7,7 +7,6 @@ import AgreementList from '@/pages/AgreementList';
 import TenantForm from '@/pages/TenantForm';
 import AgreementForm from '@/pages/AgreementForm';
 import HouseForm from '@/pages/HouseForm';
-import InvoiceForm from '@/pages/InvoiceForm';
 import TenantSingle from '@/pages/TenantSingle';
 import AgreementSingle from '@/pages/AgreementSingle';
 import HouseSingle from '@/pages/HouseSingle';
@@ -34,7 +33,6 @@ const privateRoutes = [
     { path: '/houses/:id', element: HouseSingle, display: 'none' },
     { path: '/houses/new', element: HouseForm, display: 'none' },
     { path: '/invoices', element: InvoiceList, name: 'Hóa đơn', icon: LiaFileInvoiceDollarSolid },
-    { path: '/invoices/new', element: InvoiceForm, display: 'none' },
     { path: '/invoices/:id', element: InvoiceSingle, display: 'none' },
 ];
 

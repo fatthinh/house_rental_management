@@ -31,6 +31,8 @@ public class Payment {
     @Column(name = "payment_state")
     @Enumerated(EnumType.ORDINAL)
     private PaymentStatus status;
+    @Column(name="payment_actor")
+    private String actor;
 
     @ManyToOne
     @JoinColumn(name = "invoice_id")
