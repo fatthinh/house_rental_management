@@ -4,6 +4,7 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 
 @AllArgsConstructor
@@ -20,4 +21,5 @@ public class Notification {
     private Map<String, Object> param;
     private String subject;
     private String body;
+    private LocalDateTime createdAt;
 }

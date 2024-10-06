@@ -8,7 +8,7 @@ import { privateRoutes, publicRoutes } from './routes';
 import { authenticateAsync } from './redux/slices/authSlice';
 import { useEffect, useState } from 'react';
 import NotificationToast from './components/NotificationToast';
-import { useSubscription } from 'react-stomp-hooks';
+import { useStompClient, useSubscription } from 'react-stomp-hooks';
 import appSlice from './redux/slices/appSlice';
 import { endpoints } from '@/configs/API';
 import dataSlice from './redux/slices/dataSlice';

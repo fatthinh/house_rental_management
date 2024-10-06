@@ -10,6 +10,12 @@ const Layout = () => {
                     headerShown: false,
                 }}
             />
+            <Stack.Screen
+                name="chat-detail"
+                options={{
+                    headerShown: false,
+                }}
+            />
         </Stack>
     );
 };

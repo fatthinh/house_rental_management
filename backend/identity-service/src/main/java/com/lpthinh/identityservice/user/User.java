@@ -15,7 +15,6 @@ import java.util.Set;
 @Table(name="user", schema = "public", catalog = "identitydb")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     @Column(name = "user_id")
     private String id;
     @Column(name = "user_email")

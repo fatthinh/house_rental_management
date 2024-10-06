@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
 import { Alert } from "react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 const useAxios = (axiosParams: AxiosRequestConfig) => {
   const [response, setResponse] = useState<AxiosResponse>();
   const [error, setError] = useState<AxiosError>();
@@ -10,11 +11,23 @@ const useAxios = (axiosParams: AxiosRequestConfig) => {
 
   const fetchData = async (params: AxiosRequestConfig) => {
     try {
-      const result = await axios.request(params);
+      const tokenAsync = await AsyncStorage.getItem("token");
+
+      // Add token to the request headers
+      const config: AxiosRequestConfig = {
+        ...params,
+        headers: {
+          ...params.headers,
+          Authorization: `Bearer ${tokenAsync}`,
+        },
+      };
+
+      const result = await axios.request(config);
       setResponse(result);
     } catch (err) {
       Alert.alert("Lỗi!", "Không thể tải dữ liệu.");
       setError(err as AxiosError);
+      console.log(err);
     } finally {
       setLoading(false);
     }

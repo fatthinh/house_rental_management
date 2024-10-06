@@ -10,6 +10,8 @@ import org.springframework.messaging.MessagingException;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
@@ -27,6 +29,7 @@ public class NotificationsConsumer {
                         .body(paymentNotification.body())
                         .subject(paymentNotification.subject())
                         .recipient(paymentNotification.recipient())
+                        .createdAt(LocalDateTime.now())
                         .build()
         );
         messagingTemplate.convertAndSend("/topic/admin", newNotification);

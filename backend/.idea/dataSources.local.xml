@@ -32,6 +32,7 @@
           <node kind="schema">
             <name qname="admin" />
             <name qname="notificationdb" />
+            <name qname="socialdb" />
           </node>
         </introspection-scope>
       </schema-mapping>

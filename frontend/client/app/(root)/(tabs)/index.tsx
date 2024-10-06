@@ -5,7 +5,7 @@ import { icons } from '@/constants';
 import PostCard from '@/components/PostCard';
 import { router } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useEffect } from 'react';
+import { Fragment, useEffect } from 'react';
 import { useAppDispatch } from '@/hooks/redux';
 import { authSlice } from '@/redux/slides/authSlice';
 
@@ -40,7 +40,7 @@ export default function Home() {
           paddingBottom: 100
         }}
         ListHeaderComponent={
-          <>
+          <Fragment>
             <View className="flex flex-row items-center justify-between my-2">
               <Text className="text-xl font-JakartaExtraBold">
                 Chào Thịnh    👋
@@ -65,7 +65,7 @@ export default function Home() {
             <Text className="text-xl mt-5 mb-3 font-JakartaSemiBold">
               Diễn đàn
             </Text>
-          </>
+          </Fragment>
         }
       >
       </FlatList>
