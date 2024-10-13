@@ -9,13 +9,10 @@ import { useAxios } from '@/hooks/useAxios';
 import Modal from '@/components/Modal';
 import { tenantFields } from '@/utils';
 import PageWrapper from '@/components/PageWrapper';
+import cookie from 'react-cookies';
 
 const TenantForm = () => {
-    const {
-        response: reservedHouses,
-        error,
-        loading,
-    } = useAxios({
+    const { response: reservedHouses } = useAxios({
         url: `${endpoints.house}/state/reserved`,
         method: 'GET',
     });
@@ -28,6 +25,7 @@ const TenantForm = () => {
         dob: '',
         citizenId: '',
         phone: '',
+        email: '',
         genderString: '',
         hometown: '',
         house: '',
@@ -52,9 +50,11 @@ const TenantForm = () => {
                 houseId: reservedHouses.find((item) => item.name == state.house).id,
             };
 
+            const token = cookie.load('token');
             const response = await API.post(endpoints.tenant, submissionData, {
                 headers: {
                     'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
                 },
             });
 

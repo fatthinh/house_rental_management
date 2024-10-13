@@ -3,36 +3,57 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { images } from '@/constants';
 import { Link, router } from 'expo-router';
 import { useEffect, useState } from 'react';
-import axios, { endpoints } from '@/api/axios';
+import axios, { baseConfig, endpoints } from '@/api/axios';
 import { formatDate, formatTime } from '@/lib/utils';
+import useAxios from '@/hooks/useAxios';
+import { useAppSelector } from '../../../hooks/redux';
 
 export default function Payment() {
-  const [state, setState] = useState([])
+  const user = useAppSelector((state) => state.auth.user)
 
-  const loadState = async () => {
-    try {
-      const res = await axios.get(endpoints.allInvoice)
-      if (res.status == 200) {
-        setState(res.data);
-      }
-    } catch (error) {
-      Alert.alert("Lỗi!", "Không thể tải trang!");
-    }
-  }
+  const { response: agreement } = useAxios({
+    method: "GET",
+    url: `${baseConfig.baseURL}${endpoints.agreement}/${user?.agreementId}`,
+  })
+
+  const [invoices, setInvoices] = useState([])
 
   useEffect(() => {
-    loadState();
-  }, [])
+    const startDate = new Date(agreement?.data.startDate);
+    const totalInvoices = getMonthDiff(startDate, new Date());
+    const invoiceList = [];
+
+    for (let index = 0; index < totalInvoices; index++) {
+      const invoiceDate = new Date(startDate);
+      invoiceDate.setMonth(invoiceDate.getMonth() + index);
+
+      invoiceList.push({
+        month: invoiceDate.getMonth() + 1, // JavaScript months are 0-based
+        year: invoiceDate.getFullYear(),
+      });
+    }
+    setInvoices(invoiceList);
+
+  }, [agreement]);
+
+  const getMonthDiff = (startDate: Date, endDate: Date) => {
+    return (
+      endDate.getFullYear() * 12 +
+      endDate.getMonth() -
+      (startDate.getFullYear() * 12 + startDate.getMonth())
+    );
+  };
 
   return (
     <SafeAreaView className="bg-white flex-1">
       <FlatList
-        data={Array.from(state).sort(item => -item.month)}
+        data={Array.from(invoices)}
         renderItem={({ item, index }) =>
           <TouchableOpacity onPress={() => {
             router.push({
               pathname: "/(root)/payment-detail", params: {
-                paymentId: 1
+                agreementId: user?.agreementId,
+                month: item.month
               }
             })
           }}>
@@ -40,11 +61,7 @@ export default function Payment() {
               <Image source={images.noResult} className="w-12 h-12" />
               <View className="flex-1">
                 <Text className='text-md font-JakartaBold' >Hóa đơn tiền phòng tháng {item.month}</Text>
-                <Text className="text-xs font-light">{formatDate(item.createdAt)}</Text>
-                <View className="flex flex-row justify-between">
-                  <Text className="text-xs font-light	">{item.state == "PAID" ? "Đã thanh toán" : "Chưa thanh toán"}</Text>
-                  <Text className="text-md font-bold mr-2">{item.amount.toLocaleString()} <Text className="underline">đ</Text></Text>
-                </View>
+                <Text className="text-xs font-light">{formatDate(new Date(item.year, item.month, 0))}</Text>
               </View>
             </View>
           </TouchableOpacity>

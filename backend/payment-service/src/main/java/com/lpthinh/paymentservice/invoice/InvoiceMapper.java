@@ -3,6 +3,8 @@ package com.lpthinh.paymentservice.invoice;
 import com.lpthinh.paymentservice.rental.HouseResponse;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+
 @Component
 public class InvoiceMapper {
     public Invoice toInvoice(InvoiceRequest request) {
@@ -12,8 +14,8 @@ public class InvoiceMapper {
         return Invoice
                 .builder()
                 .amount(request.amount())
-                .month(InvoiceMonth.values()[request.month() - 1])
-                .agreementId(request.agreementId())
+                .serviceId(request.serviceId())
+                .createdAt(LocalDateTime.now())
                 .build();
     }
 
@@ -22,13 +24,9 @@ public class InvoiceMapper {
         return new InvoiceResponse(
                 invoice.getId(),
                 invoice.getAmount(),
-                invoice.getMonth().ordinal() + 1,
                 invoice.getState(),
                 invoice.getCreatedAt(),
-                invoice.getAgreementId(),
-                invoice.getHouseName(),
-                invoice.getHousePrice(),
-                invoice.getServices()
+                invoice.getServiceId()
         );
     }
 }

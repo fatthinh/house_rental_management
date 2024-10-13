@@ -1,8 +1,11 @@
 package com.lpthinh.paymentservice.payment;
 
+import java.util.List;
+
 public record PayRequest(
         String paymentMethodId,
         String paymentIntentId,
-        Integer invoiceId
+        List<Integer> invoices,
+        String customer
 ) {
 }

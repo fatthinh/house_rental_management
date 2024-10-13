@@ -22,6 +22,7 @@ import {
 import { Chart } from 'react-chartjs-2';
 import { useSelector } from 'react-redux';
 import { dataSelector } from '../redux/selectors';
+import { useAxios } from '@/hooks/useAxios';
 
 ChartJS.register(
     LinearScale,
@@ -35,21 +36,21 @@ ChartJS.register(
     BarController,
 );
 
-const labels = Array.from({ length: 12 }, (v, i) => `Tháng ${i + 1}`);
+const labels = Array.from({ length: 6 }, (v, i) => `Tháng ${i + 5}`);
 
-export const data = {
-    labels,
-    datasets: [
-        {
-            type: 'bar',
-            label: 'Doanh thu năm 2024 (VNĐ)',
-            backgroundColor: 'rgb(75, 192, 192)',
-            data: labels.map(() => Math.floor(Math.random() * 100000000)),
-            borderColor: 'white',
-            borderWidth: 2,
-        },
-    ],
-};
+// export const data = {
+//     labels,
+//     datasets: [
+//         {
+//             type: 'bar',
+//             label: 'Doanh thu năm 2024 (VNĐ)',
+//             backgroundColor: 'rgb(75, 192, 192)',
+//             data: labels.map(() => Math.floor(Math.random() * 100000000)),
+//             borderColor: 'white',
+//             borderWidth: 2,
+//         },
+//     ],
+// };
 
 export const earningData = [
     {
@@ -82,7 +83,7 @@ export const earningData = [
     {
         icon: <FiBarChart />,
         amount: '103,034,000',
-        title: 'Doanh thu tháng 10',
+        title: `Tổng doanh thu`,
         iconColor: 'rgb(228, 106, 118)',
         iconBg: 'rgb(255, 244, 229)',
         pcColor: 'green-600',
@@ -92,6 +93,44 @@ export const earningData = [
 
 const Home = () => {
     const payload = useSelector(dataSelector);
+
+    const { response: invoices } = useAxios({
+        method: 'GET',
+        url: `/payment/invoice?state=paid`,
+    });
+
+    const groupedByMonth = invoices?.reduce((acc, curr) => {
+        const date = new Date(curr.createdAt);
+        const yearMonth = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+
+        if (!acc[yearMonth]) {
+            acc[yearMonth] = { totalAmount: 0, items: [] };
+        }
+
+        acc[yearMonth].totalAmount += curr.amount;
+        acc[yearMonth].items.push(curr);
+
+        return acc;
+    }, {});
+
+    // Data for the bar chart
+    const data = {
+        labels,
+        datasets: [
+            {
+                type: 'bar',
+                label: 'Doanh thu năm 2024 (VNĐ)',
+                backgroundColor: 'rgb(75, 192, 192)',
+                data: labels.map((label, index) => {
+                    const monthIndex = index + 5 > 12 ? index + 5 - 12 : index + 5;
+                    const key = `2024-${String(monthIndex).padStart(2, '0')}`;
+                    return groupedByMonth?.[key]?.totalAmount || 0;
+                }),
+                borderColor: 'white',
+                borderWidth: 2,
+            },
+        ],
+    };
 
     return (
         <div className="mt-2 max-w-full">
@@ -108,7 +147,13 @@ const Home = () => {
                                 {item.icon}
                                 <span className="text-sm text-gray-400">{item.title}</span>
                             </button>
-                            <span className="px-4 items-end text-lg font-semibold">{payload[item.name]?.data?.length}</span>
+                            <span className="px-4 items-end text-lg font-semibold">
+                                {item.name == 'revenue'
+                                    ? `${invoices
+                                          ?.reduce((accumulator, item) => accumulator + item?.amount, 0)
+                                          .toLocaleString()}đ`
+                                    : payload[item.name]?.data?.length}
+                            </span>
                         </div>
                     ))}
                 </div>
@@ -116,7 +161,7 @@ const Home = () => {
 
             <div className="my-12 mx-auto max-w-[70%]">
                 <div className="flex justify-end">
-                    <Dropdown />
+                    <Dropdown dropdownItems={[2024, 2023]} label="Năm" />
                 </div>
                 <Chart type="bar" data={data} />
             </div>

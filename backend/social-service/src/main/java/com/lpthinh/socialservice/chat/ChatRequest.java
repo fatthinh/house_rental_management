@@ -1,8 +1,9 @@
 package com.lpthinh.socialservice.chat;
 
+import java.util.List;
+
 public record ChatRequest(
-        String first,
-        String second,
+        List<String> users,
         String message
 ) {
 }

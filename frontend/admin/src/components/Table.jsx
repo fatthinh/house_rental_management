@@ -1,14 +1,25 @@
 import { Link } from 'react-router-dom';
 import SearchBox from '@/components/SearchBox';
+import Dropdown from '@/components/Dropdown';
 
-const Table = ({ data, fields, toDetail }) => {
+const Table = ({ data, fields, toDetail, dropdownItems, onClickDropdownItem, dropdownLabel }) => {
     return (
         <div className="flex flex-col">
             <div className="-m-1.5 overflow-x-auto">
                 <div className="p-1.5 min-w-full inline-block align-middle">
                     <div className="border rounded-lg divide-y divide-gray-200">
-                        <SearchBox />
-                        <div className="overflow-auto max-h-[420px]" >
+                        <div className="flex items-center justify-between">
+                            <SearchBox />
+                            {dropdownItems && (
+                                <Dropdown
+                                    className="mr-4"
+                                    dropdownItems={dropdownItems}
+                                    setCurrentItem={onClickDropdownItem}
+                                    label={dropdownLabel}
+                                />
+                            )}
+                        </div>
+                        <div className="overflow-auto max-h-[420px]">
                             <table className="min-w-full divide-y divide-gray-200">
                                 <thead className="bg-gray-50 sticky top-0">
                                     <tr>

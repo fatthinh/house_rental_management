@@ -33,7 +33,6 @@
 //   }/${year}`;
 // }
 
-
 export const formatDate = (isoString: string): string => {
   const date = new Date(isoString);
   const time = date.toLocaleTimeString("en-GB", {
@@ -42,4 +41,24 @@ export const formatDate = (isoString: string): string => {
   });
   const formattedDate = date.toLocaleDateString("en-GB");
   return `${time} - ${formattedDate}`;
+};
+
+export const timeDifference = (timestamp: string | Date): string => {
+  const now: Date = new Date();
+  const past: Date = new Date(timestamp);
+
+  const diffInSeconds: number = Math.floor(
+    (now.getTime() - past.getTime()) / 1000
+  );
+  const diffInMinutes: number = Math.floor(diffInSeconds / 60);
+  const diffInHours: number = Math.floor(diffInMinutes / 60);
+  const diffInDays: number = Math.floor(diffInHours / 24);
+
+  if (diffInMinutes < 60) {
+    return `${diffInMinutes} phút`;
+  } else if (diffInHours < 24) {
+    return `${diffInHours} giờ`;
+  } else {
+    return `${diffInDays} ngày`;
+  }
 };

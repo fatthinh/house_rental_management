@@ -26,8 +26,18 @@ const fields = [
 const AgreementSingle = () => {
     const navigate = useNavigate();
     const { id } = useParams();
-    const { response, error, loading } = useAxios(`${endpoints.agreement}/${id}`);
-    const { response: housesRes, error: housesErr, loading: housesLoading } = useAxios(`${endpoints.house}`);
+    const { response, error, loading } = useAxios({
+        method: 'GET',
+        url: `${endpoints.agreement}/${id}`,
+    });
+    const {
+        response: housesRes,
+        error: housesErr,
+        loading: housesLoading,
+    } = useAxios({
+        method: 'GET',
+        url: `${endpoints.house}`,
+    });
     const [confirmModalVisible, setConfirmModalVisible] = useState(false);
     const [editable, setEditable] = useState(false);
     const [addTenantModalVis, setAddTenantModalVis] = useState(false);
@@ -107,12 +117,12 @@ const AgreementSingle = () => {
 
                             <FormInput
                                 label="Người thuê"
-                                value={response.tenants.find((item) => item.id === response.representer).name}
+                                value={response.tenants?.find((item) => item.id === response.representer).name}
                                 readOnly
                             />
                             <FormInput
                                 label="Di động"
-                                value={response.tenants.find((item) => item.id === response.representer).phone}
+                                value={response.tenants?.find((item) => item.id === response.representer).phone}
                                 readOnly
                             />
 

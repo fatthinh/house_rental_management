@@ -1,5 +1,6 @@
 package com.lpthinh.notificationservice.websocket;
 
+import com.lpthinh.notificationservice.kafka.chat.Message;
 import com.lpthinh.notificationservice.notification.Notification;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -26,6 +27,12 @@ public class WebSocketController {
     @MessageMapping("/notifications.securityNotification")
     @SendTo("/topic/security")
     public void securityNotification(@Payload String message) {
+        System.out.println(message);
+    }
+
+    @MessageMapping("/chat.messaging")
+    @SendTo("/topic/chat")
+    public void messaging(@Payload Message message) {
         System.out.println(message);
     }
 }

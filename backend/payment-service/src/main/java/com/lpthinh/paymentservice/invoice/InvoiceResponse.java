@@ -9,12 +9,8 @@ import java.util.List;
 public record InvoiceResponse(
         Integer id,
         Long amount,
-        Integer month,
         InvoiceState state,
         LocalDateTime createdAt,
-        Integer agreementId,
-        String houseName,
-        Long housePrice,
-        List<ServiceResponse> services
+        Long serviceId
 ) {
 }

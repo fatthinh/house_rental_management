@@ -11,7 +11,6 @@
       <schema-mapping>
         <introspection-scope>
           <node kind="database">
-            <name qname="busdb" />
             <name qname="housedb" />
             <name qname="identitydb" />
             <name qname="paymentdb" />

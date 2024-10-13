@@ -9,7 +9,7 @@ public enum InvoiceMonth {
     JUNE,
     JULY,
     AUGUST,
-    SEPTEMPER,
+    SEPTEMBER,
     OCTOBER,
     NOVEMBER,
     DECEMBER

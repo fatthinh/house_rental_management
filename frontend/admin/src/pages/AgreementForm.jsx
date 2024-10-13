@@ -9,12 +9,16 @@ import { useNavigate } from 'react-router-dom';
 import API, { endpoints } from '@/configs/API';
 import { useAxios } from '@/hooks/useAxios';
 import { agreementFields } from '@/utils';
+import cookie from 'react-cookies';
+import { useDispatch } from 'react-redux';
+import dataSlice from '@/redux/slices/dataSlice';
 
 const AgreementForm = () => {
     const { response: availableHouse } = useAxios({
         url: `${endpoints.house}/state/available`,
         method: 'GET',
     });
+    const dispatch = useDispatch();
 
     const navigate = useNavigate();
     const [selectHouseModal, setSelectHouseModal] = useState(false);
@@ -31,6 +35,11 @@ const AgreementForm = () => {
         house: '',
     });
 
+    const [initServices, setInitServices] = useState({
+        electricity: 0,
+        water: 0,
+    });
+
     const onChangeState = (value, field) => {
         setState((prev) => {
             return {
@@ -44,15 +53,49 @@ const AgreementForm = () => {
         try {
             if (isValidForm()) {
                 const houseId = availableHouse.find((item) => item.name == state.house).id;
-                const res = await API.post(endpoints.agreement, {
-                    ...state,
-                    deposit: Number(state.deposit),
-                    houseId: houseId,
-                    gender: state.genderString === 'Nam' ? 0 : 1,
-                });
+                const token = await cookie.load('token');
+                const res = await API.post(
+                    endpoints.agreement,
+                    {
+                        ...state,
+                        deposit: Number(state.deposit),
+                        houseId: houseId,
+                        gender: state.genderString === 'Nam' ? 0 : 1,
+                    },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    },
+                );
 
-                if (res.status == '200') {
-                    navigate(`/agreements/${res.data}`);
+                if (res.status == 200) {
+                    const serviceRes = await API.post(
+                        `/${endpoints.service}/createAll`,
+                        [
+                            {
+                                categoryId: 1,
+                                agreementId: res.data,
+                                quantity: initServices.electricity,
+                                init: true,
+                            },
+                            {
+                                categoryId: 2,
+                                agreementId: res.data,
+                                quantity: initServices.water,
+                                init: true,
+                            },
+                        ],
+                        {
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                            },
+                        },
+                    );
+                    if (serviceRes.status == 200) {
+                        navigate(`/agreements/${res.data}`);
+                        dispatch(dataSlice.actions.refresh());
+                    }
                 }
             }
         } catch (error) {}
@@ -88,6 +131,18 @@ const AgreementForm = () => {
                             readOnly={item.readOnly}
                         />
                     ))}
+                    <FormInput
+                        label="Số điện hiện tại"
+                        type="number"
+                        value={initServices.electricity}
+                        setValue={(value) => setInitServices({ ...initServices, electricity: value })}
+                    />
+                    <FormInput
+                        label="Số nước hiện tại"
+                        type="number"
+                        value={initServices.water}
+                        setValue={(value) => setInitServices({ ...initServices, water: value })}
+                    />
 
                     <div className="flex gap-4 justify-end">
                         <Button text="Hủy" />

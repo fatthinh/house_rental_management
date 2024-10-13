@@ -24,6 +24,11 @@ public class InvoiceController {
         return ResponseEntity.ok(this.service.findAll(params));
     }
 
+    @GetMapping("/getByServices")
+    public ResponseEntity<List<InvoiceResponse>> findByServices(@RequestParam("services") List<Long> serviceIds) {
+        return ResponseEntity.ok(this.service.findByServices(serviceIds));
+    }
+
     @GetMapping("/{invoice-id}")
     public ResponseEntity<InvoiceResponse> findById(@PathVariable("invoice-id") Integer id) {
         return ResponseEntity.ok(this.mapper.toInvoiceResponse(this.service.findById(id)));

@@ -23,6 +23,8 @@ export default createSlice({
             loading: false,
             error: false,
         },
+        refresh: false,
+        currentMonth: 10,
     },
     reducers: {
         loadHouse: (state, action) => {
@@ -48,6 +50,12 @@ export default createSlice({
             state.invoice.error = payload.error;
             state.invoice.loading = payload.loading;
             if (!payload.loading) state.invoice.data = payload.data;
+        },
+        refresh: (state) => {
+            state.refresh = !state.refresh;
+        },
+        setCurrentMonth: (state, action) => {
+            state.currentMonth = action.payload;
         },
     },
 });

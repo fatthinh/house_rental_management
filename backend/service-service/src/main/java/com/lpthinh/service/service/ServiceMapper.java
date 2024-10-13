@@ -6,6 +6,7 @@ import com.lpthinh.service.category.CategoryResponse;
 
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 @Component
 public class ServiceMapper {
@@ -21,9 +22,11 @@ public class ServiceMapper {
                                 .id(request.categoryId())
                                 .build()
                 )
-                .invoiceId(request.invoiceId())
+                .agreementId(request.agreementId())
                 .quantity(request.quantity())
-                .createdAt(LocalDateTime.now())
+                .createdAt(request.init()
+                        ? LocalDateTime.now().minus(1, ChronoUnit.MONTHS)
+                        : LocalDateTime.now())
                 .build();
     }
 
@@ -32,10 +35,11 @@ public class ServiceMapper {
         return new ServiceResponse(
                 service.getId(),
                 service.getCategory(),
-                service.getInvoiceId(),
+                service.getAgreementId(),
                 service.getServiceState(),
                 service.getQuantity(),
-                service.getCreatedAt()
+                service.getCreatedAt(),
+                service.getPrevQuantity()
         );
     }
 }

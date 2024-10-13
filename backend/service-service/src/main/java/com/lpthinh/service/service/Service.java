@@ -27,9 +27,12 @@ public class Service {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
+    @Column(name = "agreement_id")
+    private Integer agreementId;
     @ManyToOne
     @JoinColumn(name = "category_id")
     private Category category;
-    @Column(name = "invoice_id")
-    private Long invoiceId;
+
+    @Transient
+    private Integer prevQuantity;
 }

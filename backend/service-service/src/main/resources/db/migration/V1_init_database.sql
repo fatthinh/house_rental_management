@@ -14,7 +14,7 @@ create table if not exists service
     service_quantity integer,
     category_id      integer
         constraint fk_service_category references category,
-    invoice_id       bigint,
+    agreement_id     int,
     created_at       timestamp
 );
 

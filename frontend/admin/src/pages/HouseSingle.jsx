@@ -14,7 +14,10 @@ const HouseSingle = () => {
     const navigate = useNavigate();
     const { id } = useParams();
 
-    const { response, error, loading } = useAxios(`${endpoints.house}/${id}`);
+    const { response, error, loading } = useAxios({
+        url: `${endpoints.house}/${id}`,
+        method: 'GET',
+    });
     const [confirmModalVisible, setConfirmModalVisible] = useState(false);
 
     const [editable, setEditable] = useState(false);

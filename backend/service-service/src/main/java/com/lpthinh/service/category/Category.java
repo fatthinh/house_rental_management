@@ -20,7 +20,7 @@ public class Category {
     @Column(name = "category_name")
     private String name;
     @Column(name = "category_price")
-    private BigDecimal price;
+    private Long price;
     @Column(name = "category_unit")
     private String unit;
     @Column(name = "quantity_per_unit")

@@ -29,4 +29,15 @@ public class ChatController {
         this.chatService.addMessage(chatId, request);
         return ResponseEntity.ok().build();
     }
+
+    @GetMapping("/{chat-id}")
+    public ResponseEntity<ChatResponse> getMessage(@PathVariable("chat-id") String chatId, @RequestParam("userId") String userId) {
+        return ResponseEntity.ok(this.chatService.findById(chatId, userId));
+    }
+
+
+    @DeleteMapping("/{chat-id}")
+    public ResponseEntity<Void> removeChat(@PathVariable("chat-id") String chatId) {
+        return ResponseEntity.accepted().build();
+    }
 }

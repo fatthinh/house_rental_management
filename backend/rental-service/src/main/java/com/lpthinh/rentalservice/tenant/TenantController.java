@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/rental/tenant")
@@ -16,8 +17,8 @@ public class TenantController {
     private final TenantService service;
 
     @GetMapping
-    public ResponseEntity<List<TenantResponse>> findAll() {
-        return ResponseEntity.ok(this.service.findAll());
+    public ResponseEntity<List<TenantResponse>> findAll(@RequestParam Map<String, String> params) {
+        return ResponseEntity.ok(this.service.findAll(params));
     }
 
     @GetMapping("/{tenant-id}")

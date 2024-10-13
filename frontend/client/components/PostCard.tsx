@@ -11,7 +11,7 @@ const PostCard = ({ post }: { post: Post }) => {
       <View className="flex flex-row items-center mb-2">
         <Image source={images.check} className="w-8 h-8" />
         <View className="ml-2">
-          <Text>Lam Phat Thinh</Text>
+          <Text>Quản trị viên</Text>
           <Text className="font-extralight text-xs">2 ngày trước</Text>
         </View>
       </View>

@@ -32,7 +32,8 @@ public class TenantMapper {
                 tenant.getHometown(),
                 tenant.getCitizenId(),
                 tenant.getPhone(),
-                tenant.getAgreement().getHouseId()
+                tenant.getAgreement().getHouseId(),
+                tenant.getAgreement().getId()
         );
     }
 }

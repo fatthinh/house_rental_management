@@ -8,22 +8,60 @@ import axios, { baseConfig, endpoints } from '@/api/axios';
 import { fetchAPI } from '@/lib/fetch';
 import ReactNativeModal from 'react-native-modal';
 import Button from '@/components/Button';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import useAxios from '@/hooks/useAxios';
 import { formatDate } from '@/lib/utils';
 import callApi from '@/api/call';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useAppSelector } from '@/hooks/redux';
 
 export default function PaymentDetail() {
+    const user = useAppSelector((state) => state.auth.user)
+
     const { initPaymentSheet, presentPaymentSheet } = useStripe();
     const [success, setSuccess] = useState<boolean>(false);
-    const { paymentId } = useLocalSearchParams();
-    const { response } = useAxios({
+    const { agreementId, month } = useLocalSearchParams();
+    const { response: services } = useAxios({
         method: "GET",
-        url: `${baseConfig.baseURL}${endpoints.singleInvoice(Number(paymentId))}`,
-        headers: {
-            Accept: "*/*"
-        }
+        url: `${baseConfig.baseURL}/service?agreement-id=${agreementId}&month=${month}`
     });
+
+    const { response: serviceCategory } = useAxios({
+        method: 'GET',
+        url: `${baseConfig.baseURL}${endpoints.service}/categories`,
+    });
+
+
+    const [invoices, setInvoices] = useState([])
+    const [state, setState] = useState<object>();
+
+    useEffect(() => {
+        if (services && serviceCategory) {
+            const servs = serviceCategory?.data.map(
+                (cate) => services?.data.find((service) => service.category.id === cate.id).id,
+            );
+            if (servs) getInvoiceByServices(servs);
+
+            setState({
+                total: calTotal(),
+                status: isPaid()
+            })
+        }
+    }, [agreementId, month, invoices, services])
+
+    const getInvoiceByServices = async (servs) => {
+        try {
+            const token = await AsyncStorage.getItem("token")
+            const res = await axios.get(`${endpoints.allInvoice}/getByServices?services=${servs?.join(', ')}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            if (res.status == 200) setInvoices(res.data);
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     const openPaymentSheet = async () => {
         await initializePaymentSheet();
@@ -42,7 +80,7 @@ export default function PaymentDetail() {
             merchantDisplayName: "fatthinh, Inc.",
             intentConfiguration: {
                 mode: {
-                    amount: response?.data.amount,
+                    amount: calTotal(),
                     currencyCode: "vnd",
                 },
                 confirmHandler: async (
@@ -50,36 +88,31 @@ export default function PaymentDetail() {
                     shouldSavePaymentMethod,
                     intentCreationCallback,
                 ) => {
-                    const integratedRes = await callApi({
-                        endpoint: `${baseConfig.baseURL}${endpoints.integrated}`,
-                        data: {
-                            name: response?.data.houseName,
-                            email: "pthinh.lama@gmail.com",
-                            amount: response?.data.amount,
-                            paymentMethodId: paymentMethod.id,
-                        },
-                        config: {
-                            headers: {
-                                "Content-Type": "application/json"
-                            }
-                        },
-                        method: "POST"
+                    const token = await AsyncStorage.getItem("token");
+
+                    const integratedRes = await axios.post(endpoints.integrated, {
+                        name: user.name,
+                        email: user.email,
+                        amount: state?.total,
+                        paymentMethodId: paymentMethod.id,
+                    }, {
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`
+                        }
                     });
 
-                    const payRes = await callApi({
-                        endpoint: `${baseConfig.baseURL}${endpoints.pay}`,
-                        data: {
-                            paymentMethodId: paymentMethod.id,
-                            paymentIntentId: integratedRes?.data.intentId,
-                            invoiceId: paymentId
-                        },
-                        config: {
-                            headers: {
-                                "Content-Type": "application/json"
-                            }
-                        },
-                        method: "POST"
-                    });
+                    const payRes = await axios.post(endpoints.pay, {
+                        paymentMethodId: paymentMethod.id,
+                        paymentIntentId: integratedRes?.data.intentId,
+                        invoices: invoices.map(item => item.id),
+                        customer: user.name
+                    }, {
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${token}`
+                        }
+                    })
 
                     if (payRes?.status == 200) {
                         intentCreationCallback({
@@ -95,6 +128,14 @@ export default function PaymentDetail() {
             // setLoading(true);
         }
     };
+
+    const calTotal = () => {
+        return invoices.reduce((accumulator, item) => accumulator + item?.amount, 0);
+    };
+
+    const isPaid = () => {
+        return invoices.every(item => item.state === "PAID");
+    }
 
     return (
         <React.Fragment>
@@ -123,29 +164,54 @@ export default function PaymentDetail() {
                                     <Image source={images.check} className='w-8 h-8' />
                                     <View className="px-4">
                                         <Text className='uppercase font-light'>Số tiền</Text>
-                                        <Text className="text-lg">{response?.data.amount.toLocaleString()}</Text>
+                                        <Text className="text-lg">{state?.total.toLocaleString()}</Text>
                                     </View>
                                 </View>
-                                <View className="flex justify-between items-center flex-row mt-3 px-4" >
+                                {/* <View className="flex justify-between items-center flex-row mt-3 px-4" >
                                     <Text className="font-light">Mã hóa đơn</Text>
                                     <Text className="fon t-JakartaBold text-xs">#{response?.data.id}</Text>
-                                </View>
+                                </View> */}
                                 <View className="flex justify-between items-center flex-row mt-3 px-4" >
                                     <Text className="font-light">Tháng</Text>
-                                    <Text className="fon t-JakartaBold text-xs">{response?.data.month}</Text>
+                                    <Text className="fon t-JakartaBold text-xs">{month}</Text>
                                 </View>
-                                {response?.data.state == "UNPAID" && <>
-                                    <View className="flex justify-between items-center flex-row mt-3 px-4" >
-                                        <Text className="font-light">Thời gian</Text>
-                                        <Text className="font-JakartaBold text-xs ">{formatDate(response?.data.createdAt)}</Text>
-                                    </View>
-                                    <View className="flex justify-between items-center flex-row mt-3 px-4" >
-                                        <Text className="font-light">Mã giao dịch</Text>
-                                        <Text className="font-JakartaBold text-xs ">1674128793</Text>
-                                    </View></>}
+                                {
+                                    serviceCategory &&
+                                    services &&
+                                    invoices &&
+                                    serviceCategory?.data.map((item, index) =>
+                                        <View key={item.name} className="flex justify-between items-center flex-row mt-3 px-4" >
+                                            <Text className="font-light">{item.name}</Text>
+                                            <Text className="text-xs">
+                                                ({item.id <= 2 ? services.data.find((service) => service.category.id === item.id).quantity -
+                                                    services.data.find((service) => service.category.id === item.id).prevQuantity
+                                                    : services.data.find((service) => service.category.id === item.id).quantity}
+                                                {' ' + item.unit} x{' '}
+                                                {item.id === 5
+                                                    ? invoices[index]?.amount.toLocaleString()
+                                                    : Number(item.price).toLocaleString()}
+                                                đ)
+                                                <Text className="text-xs font-JakartaBold">
+                                                    {invoices.find(
+                                                        (inv) =>
+                                                            inv.serviceId ===
+                                                            services.data.find((service) => service.category.id === item.id).id,
+                                                    )?.amount.toLocaleString()}đ
+                                                </Text>
+                                            </Text>
+                                        </View>
+                                    )}
+                                <View className="flex justify-between items-center flex-row mt-3 px-4" >
+                                    <Text className="font-light">Ngày tạo</Text>
+                                    <Text className="font-JakartaBold text-xs ">{formatDate(new Date(2024, month, 0))}</Text>
+                                </View>
+
                                 <View className="flex justify-between items-center flex-row mt-3 px-4" >
                                     <Text className="font-light">Trạng thái</Text>
-                                    <Text className={`font-JakartaBold text-xs ${response?.data.state == "PAID" ? "bg-success-400" : "bg-neutral-400"} px-3 py-1 text-white rounded-md`}>{response?.data.state == "PAID" ? "Đã thanh toán" : "Chưa thanh toán"}</Text>
+                                    <Text className={`font-JakartaBold text-xs ${state?.status
+                                        ? "bg-success-400"
+                                        : "bg-neutral-400"} px-3 py-1 text-white rounded-md`}>
+                                        {state?.status ? "Đã thanh toán" : "Chưa thanh toán"}</Text>
                                 </View>
                                 <TouchableOpacity className="bg-primary-300 py-3 mt-4 rounded-b-2xl">
                                     <Text className="text-center font-JakartaBold text-xs">Liên hệ hỗ trợ</Text>
@@ -154,9 +220,9 @@ export default function PaymentDetail() {
                         </SafeAreaView>
                     </LinearGradient>
                     <View className='mt-auto mb-3'>
-                        <TouchableOpacity className="mx-8 py-3 bg-primary-500 rounded-xl" onPress={openPaymentSheet}>
+                        {!state?.status && <TouchableOpacity className="mx-8 py-3 bg-primary-500 rounded-xl" onPress={openPaymentSheet}>
                             <Text className="text-lg font-JakartaBold text-white text-center leading-6" >Thanh toán</Text>
-                        </TouchableOpacity>
+                        </TouchableOpacity>}
                     </View>
                 </View>
 

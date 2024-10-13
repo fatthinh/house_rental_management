@@ -41,7 +41,11 @@ const AgreementList = () => {
                 </div>
             ) : (
                 <>
-                    <Table data={payload.data} fields={fields} toDetail="/agreements" />
+                    <Table
+                        data={Array.from(payload.data).sort((a, b) => a.houseName.localeCompare(b.houseName))}
+                        fields={fields}
+                        toDetail="/agreements"
+                    />
                     {/* <Paginator /> */}
                 </>
             )}

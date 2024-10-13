@@ -1,14 +1,15 @@
 package com.lpthinh.service.invoice;
 
+import com.lpthinh.service.config.FeignClientConfig;
+import jakarta.validation.Valid;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @FeignClient(
         name = "payment-service",
-        url = "${application.config.payment-url}"
+        url = "${application.config.payment-url}",
+        configuration = FeignClientConfig.class
 )
 public interface PaymentClient {
 
@@ -17,4 +18,8 @@ public interface PaymentClient {
 
     @PostMapping("/invoice/{invoice-id}/updateAmount")
     void updateInvoiceAmount(@PathVariable("invoice-id") Long invoiceId);
+
+    @PostMapping("/invoice")
+    ResponseEntity<Integer> create(@RequestBody @Valid InvoiceRequest request);
+
 }

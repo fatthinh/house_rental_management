@@ -4,10 +4,13 @@ import com.lpthinh.rentalservice.exception.AgreementNotFoundException;
 import com.lpthinh.rentalservice.exception.TenantNotFoundException;
 import com.lpthinh.rentalservice.house.HouseClient;
 import com.lpthinh.rentalservice.house.HouseClientService;
+import com.lpthinh.rentalservice.identity.IdentityClient;
+import com.lpthinh.rentalservice.identity.UserRequest;
 import com.lpthinh.rentalservice.tenant.Tenant;
 import com.lpthinh.rentalservice.tenant.TenantRepository;
 import com.lpthinh.rentalservice.tenant.TenantRequest;
 import com.lpthinh.rentalservice.tenant.TenantService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.annotation.Transient;
 import org.springframework.stereotype.Service;
@@ -44,7 +47,9 @@ public class AgreementService {
                 request.hometown(),
                 request.citizenId(),
                 request.phone(),
-                request.houseId()));
+                request.houseId(),
+                request.email()
+        ));
 
         savedAgreement.setRepresenter(tenantId);
         this.houseClient.updateState(request.houseId(), "reserved");
@@ -52,17 +57,24 @@ public class AgreementService {
     }
 
     public List<AgreementResponse> findAll(Map<String, String> params) {
+        var agreements = this.repository.findAll().stream();
+
         if (params.get("state") != null) {
-            return this.repository
-                    .findByState(AgreementState.valueOf(params.get("state").toUpperCase()))
-                    .stream()
-                    .map(mapper::toAgreementResponse)
-                    .collect(Collectors.toList());
+            agreements = agreements
+                    .filter(agreement ->
+                            agreement
+                                    .getState()
+                                    .equals(AgreementState.valueOf(params.get("state").toUpperCase())));
         }
 
-        return this.repository
-                .findAll()
-                .stream()
+        if (params.get("month") != null) {
+            agreements = agreements
+                    .filter(agreement ->
+                            agreement.getStartDate().getMonthValue() <= Integer.parseInt(params.get("month"))
+                    );
+        }
+
+        return agreements
                 .peek(item -> {
                     var houseInfo = houseClientService.getHouseById(item.getHouseId());
                     item.setHouseName(houseInfo.name());

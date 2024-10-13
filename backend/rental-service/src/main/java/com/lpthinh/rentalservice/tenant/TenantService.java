@@ -3,6 +3,9 @@ package com.lpthinh.rentalservice.tenant;
 import com.lpthinh.rentalservice.agreement.AgreementRepository;
 import com.lpthinh.rentalservice.agreement.AgreementService;
 import com.lpthinh.rentalservice.exception.TenantNotFoundException;
+import com.lpthinh.rentalservice.identity.IdentityClient;
+import com.lpthinh.rentalservice.identity.UserRequest;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +13,9 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -19,18 +24,34 @@ public class TenantService {
     private final TenantRepository repository;
     private final TenantMapper mapper;
     private final AgreementRepository agreementRepository;
+    private final IdentityClient identityClient;
 
+
+    @Transactional
     public String create(TenantRequest request) {
         var tenant = mapper.toTenant(request);
         tenant.setState(TenantState.GOOD);
         tenant.setAgreement(agreementRepository.findByHouseId(request.houseId()));
+        var tenantId = repository.save(tenant).getId();
 
-        return this.repository.save(tenant).getId();
+        identityClient.createUser(new UserRequest(
+                tenantId,
+                request.email(),
+                "password"
+        ));
+
+        return tenantId;
     }
 
-    public List<TenantResponse> findAll() {
-        return this.repository
-                .findAll()
+    public List<TenantResponse> findAll(Map<String, String> params) {
+        List<Tenant> tenants = new ArrayList<>();
+        if (params.containsKey("name")) {
+            tenants = this.repository.findByName(params.get("name"));
+        } else if (params.isEmpty()) {
+            tenants = this.repository.findAll();
+        }
+
+        return tenants
                 .stream()
                 .map(mapper::toTenantResponse)
                 .collect(Collectors.toList());

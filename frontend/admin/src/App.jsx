@@ -13,6 +13,7 @@ import appSlice from './redux/slices/appSlice';
 import { endpoints } from '@/configs/API';
 import dataSlice from './redux/slices/dataSlice';
 import { useAxios } from './hooks/useAxios';
+import { dataSelector } from './redux/selectors';
 
 const PrivateRoute = ({ element: Element, ...rest }) => {
     const { isAuthenticated, loading } = useSelector(authSelector);
@@ -57,6 +58,8 @@ function App() {
         method: 'GET',
         url: endpoints.tenant,
     });
+    
+    const {refresh} = useSelector(dataSelector);
 
     // -----
     const { activeMenu, toast } = useSelector(appSelector);
@@ -77,23 +80,22 @@ function App() {
     }, [dispatch]);
 
     useEffect(() => {
-        console.log('rerender');
         dispatch(dataSlice.actions.loadHouse({ error: houseError, loading: houseLoading, data: houseData }));
-    }, [houseData]);
+    }, [houseData, refresh]);
 
     useEffect(() => {
         dispatch(
             dataSlice.actions.loadAgreement({ error: agreementError, loading: agreementLoading, data: agreementData }),
         );
-    }, [agreementData]);
+    }, [agreementData, refresh]);
 
     useEffect(() => {
         dispatch(dataSlice.actions.loadTenant({ error: tenantError, loading: tenantLoading, data: tenantData }));
-    }, [tenantData]);
+    }, [tenantData, refresh]);
 
     useEffect(() => {
         dispatch(dataSlice.actions.loadInvoice({ error: invoiceError, loading: invoiceLoading, data: invoiceData }));
-    }, [invoiceData]);
+    }, [invoiceData, refresh]);
 
     return (
         <Router>

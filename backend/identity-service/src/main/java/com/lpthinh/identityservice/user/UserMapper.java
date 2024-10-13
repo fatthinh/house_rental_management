@@ -34,7 +34,8 @@ public class UserMapper {
                 tenantInfo.hometown(),
                 tenantInfo.citizenId(),
                 tenantInfo.phone(),
-                tenantInfo.houseId()
+                tenantInfo.houseId(),
+                tenantInfo.agreementId()
         );
     }
 }

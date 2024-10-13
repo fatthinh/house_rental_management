@@ -20,7 +20,6 @@ export const authSlice = createSlice({
     },
     logout: (state) => {
       state.user = null;
-      //   cookie.remove('token');
     },
   },
 });
@@ -28,6 +27,6 @@ export const authSlice = createSlice({
 export const { login } = authSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
-export const selectCount = (state: RootState) => state.auth;
+export const authSelector = (state: RootState) => state.auth;
 
 export default authSlice.reducer;

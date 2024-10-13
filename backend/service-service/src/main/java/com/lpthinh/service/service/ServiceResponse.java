@@ -7,9 +7,10 @@ import java.time.LocalDateTime;
 public record ServiceResponse(
         Long id,
         Category category,
-        Long invoiceId,
+        Integer agreementId,
         ServiceState state,
         Integer quantity,
-        LocalDateTime createdAt
+        LocalDateTime createdAt,
+        Integer prevQuantity
 ) {
 }

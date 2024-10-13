@@ -37,6 +37,10 @@ export const tenantFields = [
         label: 'Số điện thoại',
     },
     {
+        field: 'email',
+        label: 'Email',
+    },
+    {
         field: 'genderString',
         label: 'Giới tính',
         values: ['Nam', 'Nữ'],
@@ -69,6 +73,10 @@ export const agreementFields = [
     {
         field: 'phone',
         label: 'Số điện thoại',
+    },
+    {
+        field: 'email',
+        label: 'Email',
     },
     {
         field: 'genderString',

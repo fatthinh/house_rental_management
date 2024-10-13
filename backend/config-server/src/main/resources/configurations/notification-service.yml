@@ -18,4 +18,4 @@ spring:
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
         spring.json.trusted.packages: '*'
-        spring.json.type.mapping: paymentNotification:com.lpthinh.notificationservice.kafka.payment.PaymentNotification
+        spring.json.type.mapping: notification:com.lpthinh.notificationservice.notification.NotificationRequest, messageResponse:com.lpthinh.notificationservice.kafka.chat.Message

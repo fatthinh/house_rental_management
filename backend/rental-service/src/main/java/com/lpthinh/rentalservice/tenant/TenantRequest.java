@@ -8,6 +8,7 @@ public record TenantRequest(
         String hometown,
         String citizenId,
         String phone,
-        Integer houseId
+        Integer houseId,
+        String email
 ) {
 }

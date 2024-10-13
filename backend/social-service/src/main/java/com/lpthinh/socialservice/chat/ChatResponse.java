@@ -6,8 +6,8 @@ import java.util.List;
 
 public record ChatResponse(
         String id,
-        String first,
-        String second,
+        String name,
+        List<String> users,
         List<Message> messages
 ) {
 }

@@ -7,12 +7,16 @@ import Button from "@/components/Button";
 import InputField from "@/components/InputField";
 import { icons, images } from "@/constants";
 import axios, { endpoints } from "@/api/axios";
+import { useAppDispatch } from '../../hooks/redux';
+import { authSlice } from '../../redux/slides/authSlice';
 
 const SignIn = () => {
+    const dispatch = useAppDispatch()
     const [form, setForm] = useState({
-        email: "pthinh.lama@gmail.com",
-        password: "lpthinh",
+        email: "tranvanb@gmail.com",
+        password: "password",
     });
+
 
     const onSignInPress = useCallback(async () => {
         try {
@@ -29,6 +33,12 @@ const SignIn = () => {
 
             if (res.status == 200) {
                 await AsyncStorage.setItem("token", res.data);
+                const userRes = await axios.get(endpoints.currentUser, {
+                    headers: {
+                        "Authorization": `Bearer ${res.data}`
+                    }
+                })
+                dispatch(authSlice.actions.login(userRes.data))
                 router.replace("/(root)/(tabs)/")
             }
             else

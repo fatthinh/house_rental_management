@@ -9,12 +9,16 @@ import API, { endpoints } from '@/configs/API';
 import Modal from '@/components/Modal';
 import { tenantFields } from '@/utils';
 import PageWrapper from '@/components/PageWrapper';
+import cookie from 'react-cookies';
 
 const TenantSingle = () => {
     const navigate = useNavigate();
     const { id } = useParams();
 
-    const { response, error, loading } = useAxios(`${endpoints.tenant}/${id}`);
+    const { response, error, loading } = useAxios({
+        url: `${endpoints.tenant}/${id}`,
+        method: "GET"
+    });
 
     const [confirmModalVisible, setConfirmModalVisible] = useState(false);
 
@@ -27,6 +31,7 @@ const TenantSingle = () => {
         genderString: '',
         hometown: '',
         house: '',
+        email: "name@gmail.com"
     });
 
     const onChangeState = (value, field) => {
@@ -42,7 +47,12 @@ const TenantSingle = () => {
         const fetchHouseData = async () => {
             if (response) {
                 try {
-                    const houseRes = await API.get(`${endpoints.house}/${response.houseId}`);
+                    const token = await cookie.load("token")
+                    const houseRes = await API.get(`${endpoints.house}/${response.houseId}`, {
+                        headers: {
+                            Authorization: `Bearer ${token}`
+                        }
+                    });
                     setState({ ...response, house: houseRes.data.name });
                 } catch (error) {
                     console.error('Error fetching house data:', error);

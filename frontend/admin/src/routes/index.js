@@ -11,6 +11,7 @@ import TenantSingle from '@/pages/TenantSingle';
 import AgreementSingle from '@/pages/AgreementSingle';
 import HouseSingle from '@/pages/HouseSingle';
 import InvoiceSingle from '@/pages/InvoiceSingle';
+import InvoiceForm from '@/pages/InvoiceForm';
 import SignIn from '@/pages/SignIn';
 
 // Icons
@@ -34,6 +35,7 @@ const privateRoutes = [
     { path: '/houses/new', element: HouseForm, display: 'none' },
     { path: '/invoices', element: InvoiceList, name: 'Hóa đơn', icon: LiaFileInvoiceDollarSolid },
     { path: '/invoices/:id', element: InvoiceSingle, display: 'none' },
+    { path: '/agreements/:id/new-invoice', element: InvoiceForm, display: 'none' },
 ];
 
 const publicRoutes = [{ path: '/sign-in', element: SignIn, display: 'none', layout: 'none' }];

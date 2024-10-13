@@ -4,31 +4,15 @@ import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
 import Button from './Button';
 import { useDispatch } from 'react-redux';
 import appSlice from '@/redux/slices/appSlice';
-
-const chatData = [
-    {
-        message: 'Thanh toán',
-        desc: 'Phòng C204 đã thanh toán hóa đơn tháng 10',
-        time: '9:08 AM',
-    },
-    {
-        message: 'Cảnh báo',
-        desc: 'Phát hiện người lạ',
-        time: '11:56 AM',
-    },
-    {
-        message: 'Thanh toán',
-        desc: 'Phòng C106 đã thanh toán hóa đơn tháng 10',
-        time: '12:08 AM',
-    },
-    {
-        message: 'Thanh toán',
-        desc: 'Phòng C105 đã thanh toán hóa đơn tháng 10',
-        time: '9:52 AM',
-    },
-];
+import { useAxios } from '@/hooks/useAxios';
+import { formatDate } from '@/utils/index';
 
 const Notification = () => {
+    const { response: invoices } = useAxios({
+        method: 'GET',
+        url: `/notification`,
+    });
+
     const dispatch = useDispatch();
     return (
         <div className="bg-half-transparent w-full fixed nav-item top-0 right-0 ">
@@ -39,7 +23,7 @@ const Notification = () => {
                         <p className="font-semibold text-lg dark:text-gray-200">Thông báo</p>
                         {/* New Notifications */}
                         <h4 className="text-xs leading-5 text-white rounded p-1 px-2 bg-accent-400 ">
-                            {chatData.length} mới
+                            {invoices?.length} mới
                         </h4>
                     </div>
 
@@ -55,12 +39,12 @@ const Notification = () => {
                 </div>
 
                 <div className="mt-5 overflow-auto max-h-screen">
-                    {chatData?.map((item, index) => (
+                    {invoices?.map((item, index) => (
                         <div key={index} className="flex items-center leading-8 gap-5 border-b-1 border-color p-3">
                             <div className="w-full">
-                                <p className="font-semibold">{item.message}</p>
-                                <p className="text-gray-500 text-sm"> {item.desc} </p>
-                                <p className="text-end text-gray-500 text-xs">{item.time}</p>
+                                <p className="font-semibold">{item.subject}</p>
+                                <p className="text-gray-500 text-sm"> {item.body} </p>
+                                <p className="text-end text-gray-500 text-xs">{formatDate(item.createdAt)}</p>
                             </div>
                         </div>
                     ))}

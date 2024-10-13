@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 public record CategoryResponse(
         Integer id,
         String name,
-        BigDecimal price,
+        Long price,
         String unit,
         Integer quantityPerUnit
 ) {

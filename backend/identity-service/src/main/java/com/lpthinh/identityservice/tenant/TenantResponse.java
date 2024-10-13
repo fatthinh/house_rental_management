@@ -10,6 +10,7 @@ public record TenantResponse(
         String hometown,
         String citizenId,
         String phone,
-        Integer houseId
+        Integer houseId,
+        Integer agreementId
 ) {
 }

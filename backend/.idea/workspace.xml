@@ -5,49 +5,168 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6eb97886-491e-4d4e-99d6-dcbebca11218" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/lpthinh/identityservice/configuration/RestTemplateConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/lpthinh/identityservice/tenant/TenantResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/lpthinh/identityservice/tenant/TenantServiceClient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/lpthinh/identityservice/user/TenantUserResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/social-service/src/main/java/com/lpthinh/socialservice/chat/Chat.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/social-service/src/main/java/com/lpthinh/socialservice/chat/ChatController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/social-service/src/main/java/com/lpthinh/socialservice/chat/ChatMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/social-service/src/main/java/com/lpthinh/socialservice/chat/ChatRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/social-service/src/main/java/com/lpthinh/socialservice/chat/ChatRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/social-service/src/main/java/com/lpthinh/socialservice/chat/ChatResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/social-service/src/main/java/com/lpthinh/socialservice/chat/ChatService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/social-service/src/main/java/com/lpthinh/socialservice/message/MessageMapper.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/social-service/src/main/java/com/lpthinh/socialservice/message/MessageRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/social-service/src/main/java/com/lpthinh/socialservice/message/MessageService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/social-service/src/main/java/com/lpthinh/socialservice/message/MessageState.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/house-service/src/main/java/com/lpthinh/houseservice/config/ApiResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/house-service/src/main/java/com/lpthinh/houseservice/config/CustomJwtDecoder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/house-service/src/main/java/com/lpthinh/houseservice/config/JwtAuthenticationEntryPoint.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/house-service/src/main/java/com/lpthinh/houseservice/config/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/house-service/src/main/java/com/lpthinh/houseservice/exception/ErrorCode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/lpthinh/identityservice/configuration/FeignClientConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/notification-service/src/main/java/com/lpthinh/notificationservice/kafka/chat/Message.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/notification-service/src/main/java/com/lpthinh/notificationservice/notification/NotificationController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/notification-service/src/main/java/com/lpthinh/notificationservice/notification/NotificationMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/notification-service/src/main/java/com/lpthinh/notificationservice/notification/NotificationRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/notification-service/src/main/java/com/lpthinh/notificationservice/notification/NotificationResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/notification-service/src/main/java/com/lpthinh/notificationservice/notification/NotificationService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/payment-service/src/main/java/com/lpthinh/paymentservice/config/ApiResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/payment-service/src/main/java/com/lpthinh/paymentservice/config/CustomJwtDecoder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/payment-service/src/main/java/com/lpthinh/paymentservice/config/JwtAuthenticationEntryPoint.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/payment-service/src/main/java/com/lpthinh/paymentservice/config/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/payment-service/src/main/java/com/lpthinh/paymentservice/exception/ErrorCode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rental-service/src/main/java/com/lpthinh/rentalservice/config/ApiResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rental-service/src/main/java/com/lpthinh/rentalservice/config/CustomJwtDecoder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rental-service/src/main/java/com/lpthinh/rentalservice/config/FeignClientConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rental-service/src/main/java/com/lpthinh/rentalservice/config/JwtAuthenticationEntryPoint.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rental-service/src/main/java/com/lpthinh/rentalservice/config/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rental-service/src/main/java/com/lpthinh/rentalservice/exception/ErrorCode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rental-service/src/main/java/com/lpthinh/rentalservice/identity/IdentityClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/rental-service/src/main/java/com/lpthinh/rentalservice/identity/UserRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-service/src/main/java/com/lpthinh/service/agreement/AgreementResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-service/src/main/java/com/lpthinh/service/agreement/AgreementServiceClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-service/src/main/java/com/lpthinh/service/config/ApiResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-service/src/main/java/com/lpthinh/service/config/CustomJwtDecoder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-service/src/main/java/com/lpthinh/service/config/FeignClientConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-service/src/main/java/com/lpthinh/service/config/JwtAuthenticationEntryPoint.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-service/src/main/java/com/lpthinh/service/config/RestTemplateConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-service/src/main/java/com/lpthinh/service/config/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-service/src/main/java/com/lpthinh/service/exception/ErrorCode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/service-service/src/main/java/com/lpthinh/service/invoice/InvoiceRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/social-service/src/main/java/com/lpthinh/socialservice/config/ApiResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/social-service/src/main/java/com/lpthinh/socialservice/config/CustomJwtDecoder.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/social-service/src/main/java/com/lpthinh/socialservice/config/JwtAuthenticationEntryPoint.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/social-service/src/main/java/com/lpthinh/socialservice/config/RestTemplateConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/social-service/src/main/java/com/lpthinh/socialservice/config/SecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/social-service/src/main/java/com/lpthinh/socialservice/exception/ErrorCode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/social-service/src/main/java/com/lpthinh/socialservice/message/MessageResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/social-service/src/main/java/com/lpthinh/socialservice/user/UserResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/social-service/src/main/java/com/lpthinh/socialservice/user/UserServiceClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/5b240d08-8261-4828-ba22-cf0e33bbf0a6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/5b240d08-8261-4828-ba22-cf0e33bbf0a6.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fe13eecc-da11-41f9-b12f-eb55e16befe7.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/fe13eecc-da11-41f9-b12f-eb55e16befe7.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fe13eecc-da11-41f9-b12f-eb55e16befe7/storage_v2/_src_/database/busdb._uqbBQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fe13eecc-da11-41f9-b12f-eb55e16befe7/storage_v2/_src_/database/busdb._uqbBQ/schema/public.abK9xQ.meta" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fe13eecc-da11-41f9-b12f-eb55e16befe7/storage_v2/_src_/database/housedb.nouYQQ/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/fe13eecc-da11-41f9-b12f-eb55e16befe7/storage_v2/_src_/database/housedb.nouYQQ/schema/public.abK9xQ.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fe13eecc-da11-41f9-b12f-eb55e16befe7/storage_v2/_src_/database/identitydb.vEWPnw/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/fe13eecc-da11-41f9-b12f-eb55e16befe7/storage_v2/_src_/database/identitydb.vEWPnw/schema/public.abK9xQ.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fe13eecc-da11-41f9-b12f-eb55e16befe7/storage_v2/_src_/database/paymentdb.BNXX-g/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/fe13eecc-da11-41f9-b12f-eb55e16befe7/storage_v2/_src_/database/paymentdb.BNXX-g/schema/public.abK9xQ.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fe13eecc-da11-41f9-b12f-eb55e16befe7/storage_v2/_src_/database/rentaldb.otBg4w/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/fe13eecc-da11-41f9-b12f-eb55e16befe7/storage_v2/_src_/database/rentaldb.otBg4w/schema/public.abK9xQ.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/fe13eecc-da11-41f9-b12f-eb55e16befe7/storage_v2/_src_/database/servicedb.8_ls9A/schema/public.abK9xQ.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/fe13eecc-da11-41f9-b12f-eb55e16befe7/storage_v2/_src_/database/servicedb.8_ls9A/schema/public.abK9xQ.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-gateway/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api-gateway/src/main/java/com/lpthinh/gateway/configuration/AuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/api-gateway/src/main/java/com/lpthinh/gateway/configuration/AuthenticationFilter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config-server/src/main/resources/configurations/identity-service.yml" beforeDir="false" afterPath="$PROJECT_DIR$/config-server/src/main/resources/configurations/identity-service.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config-server/src/main/resources/configurations/notification-service.yml" beforeDir="false" afterPath="$PROJECT_DIR$/config-server/src/main/resources/configurations/notification-service.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config-server/src/main/resources/configurations/payment-service.yml" beforeDir="false" afterPath="$PROJECT_DIR$/config-server/src/main/resources/configurations/payment-service.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config-server/src/main/resources/configurations/rental-service.yml" beforeDir="false" afterPath="$PROJECT_DIR$/config-server/src/main/resources/configurations/rental-service.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config-server/src/main/resources/configurations/service-service.yml" beforeDir="false" afterPath="$PROJECT_DIR$/config-server/src/main/resources/configurations/service-service.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config-server/src/main/resources/configurations/social-service.yml" beforeDir="false" afterPath="$PROJECT_DIR$/config-server/src/main/resources/configurations/social-service.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/identity-service/src/main/java/com/lpthinh/identityservice/user/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/lpthinh/identityservice/user/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/house-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/house-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/house-service/src/main/java/com/lpthinh/houseservice/HouseServiceApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/house-service/src/main/java/com/lpthinh/houseservice/HouseServiceApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/identity-service/src/main/java/com/lpthinh/identityservice/configuration/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/lpthinh/identityservice/configuration/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/identity-service/src/main/java/com/lpthinh/identityservice/tenant/TenantResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/lpthinh/identityservice/tenant/TenantResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/identity-service/src/main/java/com/lpthinh/identityservice/tenant/TenantServiceClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/lpthinh/identityservice/tenant/TenantServiceClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/identity-service/src/main/java/com/lpthinh/identityservice/user/TenantUserResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/lpthinh/identityservice/user/TenantUserResponse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/identity-service/src/main/java/com/lpthinh/identityservice/user/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/lpthinh/identityservice/user/UserController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/identity-service/src/main/java/com/lpthinh/identityservice/user/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/lpthinh/identityservice/user/UserMapper.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/identity-service/src/main/java/com/lpthinh/identityservice/user/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/identity-service/src/main/java/com/lpthinh/identityservice/user/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notification-service/src/main/java/com/lpthinh/notificationservice/kafka/NotificationsConsumer.java" beforeDir="false" afterPath="$PROJECT_DIR$/notification-service/src/main/java/com/lpthinh/notificationservice/kafka/NotificationsConsumer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notification-service/src/main/java/com/lpthinh/notificationservice/notification/Notification.java" beforeDir="false" afterPath="$PROJECT_DIR$/notification-service/src/main/java/com/lpthinh/notificationservice/notification/Notification.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/social-service/src/main/java/com/lpthinh/socialservice/message/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/social-service/src/main/java/com/lpthinh/socialservice/message/Message.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/social-service/src/main/java/com/lpthinh/socialservice/post/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/social-service/src/main/java/com/lpthinh/socialservice/post/Post.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/social-service/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/social-service/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notification-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/notification-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notification-service/src/main/java/com/lpthinh/notificationservice/kafka/NotificationsConsumer.java" beforeDir="false" afterPath="$PROJECT_DIR$/notification-service/src/main/java/com/lpthinh/notificationservice/kafka/KafkaConsumer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notification-service/src/main/java/com/lpthinh/notificationservice/kafka/payment/PaymentNotification.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/notification-service/src/main/java/com/lpthinh/notificationservice/websocket/WebSocketConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/notification-service/src/main/java/com/lpthinh/notificationservice/websocket/WebSocketConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notification-service/src/main/java/com/lpthinh/notificationservice/websocket/WebSocketController.java" beforeDir="false" afterPath="$PROJECT_DIR$/notification-service/src/main/java/com/lpthinh/notificationservice/websocket/WebSocketController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payment-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/payment-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payment-service/src/main/java/com/lpthinh/paymentservice/config/KafkaPaymentTopicConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/payment-service/src/main/java/com/lpthinh/paymentservice/config/KafkaTopicConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payment-service/src/main/java/com/lpthinh/paymentservice/invoice/Invoice.java" beforeDir="false" afterPath="$PROJECT_DIR$/payment-service/src/main/java/com/lpthinh/paymentservice/invoice/Invoice.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payment-service/src/main/java/com/lpthinh/paymentservice/invoice/InvoiceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/payment-service/src/main/java/com/lpthinh/paymentservice/invoice/InvoiceController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payment-service/src/main/java/com/lpthinh/paymentservice/invoice/InvoiceMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/payment-service/src/main/java/com/lpthinh/paymentservice/invoice/InvoiceMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payment-service/src/main/java/com/lpthinh/paymentservice/invoice/InvoiceMonth.java" beforeDir="false" afterPath="$PROJECT_DIR$/payment-service/src/main/java/com/lpthinh/paymentservice/invoice/InvoiceMonth.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payment-service/src/main/java/com/lpthinh/paymentservice/invoice/InvoiceRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/payment-service/src/main/java/com/lpthinh/paymentservice/invoice/InvoiceRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payment-service/src/main/java/com/lpthinh/paymentservice/invoice/InvoiceRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/payment-service/src/main/java/com/lpthinh/paymentservice/invoice/InvoiceRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payment-service/src/main/java/com/lpthinh/paymentservice/invoice/InvoiceResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/payment-service/src/main/java/com/lpthinh/paymentservice/invoice/InvoiceResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payment-service/src/main/java/com/lpthinh/paymentservice/invoice/InvoiceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/payment-service/src/main/java/com/lpthinh/paymentservice/invoice/InvoiceService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payment-service/src/main/java/com/lpthinh/paymentservice/notification/NotificationProducer.java" beforeDir="false" afterPath="$PROJECT_DIR$/payment-service/src/main/java/com/lpthinh/paymentservice/notification/NotificationProducer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payment-service/src/main/java/com/lpthinh/paymentservice/notification/PaymentNotificationRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/payment-service/src/main/java/com/lpthinh/paymentservice/notification/NotificationRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payment-service/src/main/java/com/lpthinh/paymentservice/payment/PayRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/payment-service/src/main/java/com/lpthinh/paymentservice/payment/PayRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payment-service/src/main/java/com/lpthinh/paymentservice/payment/PaymentService.java" beforeDir="false" afterPath="$PROJECT_DIR$/payment-service/src/main/java/com/lpthinh/paymentservice/payment/PaymentService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/payment-service/src/main/resources/db/migration/V1_init_database.sql" beforeDir="false" afterPath="$PROJECT_DIR$/payment-service/src/main/resources/db/migration/V1_init_database.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rental-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/rental-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rental-service/src/main/java/com/lpthinh/rentalservice/agreement/AgreementService.java" beforeDir="false" afterPath="$PROJECT_DIR$/rental-service/src/main/java/com/lpthinh/rentalservice/agreement/AgreementService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rental-service/src/main/java/com/lpthinh/rentalservice/agreement/NewAgreementRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/rental-service/src/main/java/com/lpthinh/rentalservice/agreement/NewAgreementRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rental-service/src/main/java/com/lpthinh/rentalservice/house/HouseClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/rental-service/src/main/java/com/lpthinh/rentalservice/house/HouseClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rental-service/src/main/java/com/lpthinh/rentalservice/house/HouseClientService.java" beforeDir="false" afterPath="$PROJECT_DIR$/rental-service/src/main/java/com/lpthinh/rentalservice/house/HouseClientService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rental-service/src/main/java/com/lpthinh/rentalservice/tenant/TenantController.java" beforeDir="false" afterPath="$PROJECT_DIR$/rental-service/src/main/java/com/lpthinh/rentalservice/tenant/TenantController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rental-service/src/main/java/com/lpthinh/rentalservice/tenant/TenantMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/rental-service/src/main/java/com/lpthinh/rentalservice/tenant/TenantMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rental-service/src/main/java/com/lpthinh/rentalservice/tenant/TenantRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/rental-service/src/main/java/com/lpthinh/rentalservice/tenant/TenantRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rental-service/src/main/java/com/lpthinh/rentalservice/tenant/TenantRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/rental-service/src/main/java/com/lpthinh/rentalservice/tenant/TenantRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rental-service/src/main/java/com/lpthinh/rentalservice/tenant/TenantResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/rental-service/src/main/java/com/lpthinh/rentalservice/tenant/TenantResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rental-service/src/main/java/com/lpthinh/rentalservice/tenant/TenantService.java" beforeDir="false" afterPath="$PROJECT_DIR$/rental-service/src/main/java/com/lpthinh/rentalservice/tenant/TenantService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/service-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service-service/src/main/java/com/lpthinh/service/category/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/service-service/src/main/java/com/lpthinh/service/category/Category.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service-service/src/main/java/com/lpthinh/service/category/CategoryRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/service-service/src/main/java/com/lpthinh/service/category/CategoryRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service-service/src/main/java/com/lpthinh/service/category/CategoryResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/service-service/src/main/java/com/lpthinh/service/category/CategoryResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service-service/src/main/java/com/lpthinh/service/invoice/PaymentClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/service-service/src/main/java/com/lpthinh/service/invoice/PaymentClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service-service/src/main/java/com/lpthinh/service/service/Service.java" beforeDir="false" afterPath="$PROJECT_DIR$/service-service/src/main/java/com/lpthinh/service/service/Service.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service-service/src/main/java/com/lpthinh/service/service/ServiceMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/service-service/src/main/java/com/lpthinh/service/service/ServiceMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service-service/src/main/java/com/lpthinh/service/service/ServiceRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/service-service/src/main/java/com/lpthinh/service/service/ServiceRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service-service/src/main/java/com/lpthinh/service/service/ServiceRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/service-service/src/main/java/com/lpthinh/service/service/ServiceRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service-service/src/main/java/com/lpthinh/service/service/ServiceResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/service-service/src/main/java/com/lpthinh/service/service/ServiceResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service-service/src/main/java/com/lpthinh/service/service/ServiceService.java" beforeDir="false" afterPath="$PROJECT_DIR$/service-service/src/main/java/com/lpthinh/service/service/ServiceService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/service-service/src/main/resources/db/migration/V1_init_database.sql" beforeDir="false" afterPath="$PROJECT_DIR$/service-service/src/main/resources/db/migration/V1_init_database.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/social-service/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/social-service/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/social-service/src/main/java/com/lpthinh/socialservice/chat/Chat.java" beforeDir="false" afterPath="$PROJECT_DIR$/social-service/src/main/java/com/lpthinh/socialservice/chat/Chat.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/social-service/src/main/java/com/lpthinh/socialservice/chat/ChatController.java" beforeDir="false" afterPath="$PROJECT_DIR$/social-service/src/main/java/com/lpthinh/socialservice/chat/ChatController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/social-service/src/main/java/com/lpthinh/socialservice/chat/ChatMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/social-service/src/main/java/com/lpthinh/socialservice/chat/ChatMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/social-service/src/main/java/com/lpthinh/socialservice/chat/ChatRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/social-service/src/main/java/com/lpthinh/socialservice/chat/ChatRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/social-service/src/main/java/com/lpthinh/socialservice/chat/ChatRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/social-service/src/main/java/com/lpthinh/socialservice/chat/ChatRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/social-service/src/main/java/com/lpthinh/socialservice/chat/ChatResponse.java" beforeDir="false" afterPath="$PROJECT_DIR$/social-service/src/main/java/com/lpthinh/socialservice/chat/ChatResponse.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/social-service/src/main/java/com/lpthinh/socialservice/chat/ChatService.java" beforeDir="false" afterPath="$PROJECT_DIR$/social-service/src/main/java/com/lpthinh/socialservice/chat/ChatService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../documents/2151013094_LamPhatThinh_DoAn.docx" beforeDir="false" afterPath="$PROJECT_DIR$/../documents/2151013094_LamPhatThinh_DoAn.docx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../documents/application-architecture.drawio" beforeDir="false" afterPath="$PROJECT_DIR$/../documents/application-architecture.drawio" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../documents/ddd-diagram.drawio" beforeDir="false" afterPath="$PROJECT_DIR$/../documents/ddd-diagram.drawio" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../documents/sequence-diagram.drawio" beforeDir="false" afterPath="$PROJECT_DIR$/../documents/sequence-diagram.drawio" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../documents/usecase-diagram.drawio" beforeDir="false" afterPath="$PROJECT_DIR$/../documents/usecase-diagram.drawio" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../documents/usecase-diagram.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../documents/ddd-diagram.drawio.png" beforeDir="false" afterPath="$PROJECT_DIR$/../documents/ddd-diagram.drawio.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/admin/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/admin/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/admin/src/App.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/admin/src/App.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/client/.env" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/client/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/admin/src/components/Dropdown.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/admin/src/components/Dropdown.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/admin/src/components/Notification.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/admin/src/components/Notification.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/admin/src/components/Table.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/admin/src/components/Table.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/admin/src/hooks/useAxios.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/admin/src/hooks/useAxios.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/admin/src/pages/AgreementForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/admin/src/pages/AgreementForm.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/admin/src/pages/AgreementList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/admin/src/pages/AgreementList.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/admin/src/pages/AgreementSingle.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/admin/src/pages/AgreementSingle.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/admin/src/pages/Home.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/admin/src/pages/Home.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/admin/src/pages/HouseList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/admin/src/pages/HouseList.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/admin/src/pages/HouseSingle.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/admin/src/pages/HouseSingle.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/admin/src/pages/InvoiceList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/admin/src/pages/InvoiceList.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/admin/src/pages/InvoicePending.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/admin/src/pages/InvoiceSingle.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/admin/src/pages/InvoiceSingle.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/admin/src/pages/TenantForm.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/admin/src/pages/TenantForm.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/admin/src/pages/TenantSingle.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/admin/src/pages/TenantSingle.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/admin/src/redux/slices/dataSlice.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/admin/src/redux/slices/dataSlice.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/admin/src/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/admin/src/routes/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/admin/src/utils/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/admin/src/utils/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/admin/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/admin/yarn.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/client/api/axios.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/client/api/axios.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/client/app/(auth)/sign-in.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/client/app/(auth)/sign-in.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/client/app/(root)/(tabs)/chat.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/client/app/(root)/(tabs)/chat.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../frontend/client/app/(root)/(tabs)/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/client/app/(root)/(tabs)/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/client/app/(root)/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/client/app/(root)/_layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../frontend/client/hooks/useAxios.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/client/hooks/useAxios.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/client/app/(root)/(tabs)/payment.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/client/app/(root)/(tabs)/payment.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/client/app/(root)/chat-detail.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/client/app/(root)/chat-detail.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/client/app/(root)/payment-detail.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/client/app/(root)/payment-detail.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/client/app/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/client/app/_layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/client/app/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/client/app/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/client/components/PostCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/client/components/PostCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/client/lib/utils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/client/lib/utils.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/client/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/client/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/client/redux/slides/authSlice.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/client/redux/slides/authSlice.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../frontend/client/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../frontend/client/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,6 +228,7 @@
     &quot;Application.HelloApplication.executor&quot;: &quot;Run&quot;,
     &quot;Application.RentalServiceApplication.executor&quot;: &quot;Debug&quot;,
     &quot;Database Script.V1_init_database.sql.executor&quot;: &quot;Run&quot;,
+    &quot;Docker.docker-compose.yml.zipkin: Compose Deployment.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.All in config-server.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.All in service-service.executor&quot;: &quot;Run&quot;,
     &quot;Maven.config-server [compile].executor&quot;: &quot;Run&quot;,
@@ -161,18 +281,19 @@
     &quot;Spring Boot.RentalServiceApplication.executor&quot;: &quot;Run&quot;,
     &quot;Spring Boot.ServiceService.executor&quot;: &quot;Run&quot;,
     &quot;Spring Boot.ServiceServiceApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Spring Boot.SocialService.executor&quot;: &quot;Run&quot;,
     &quot;Spring Boot.SocialServiceApplication.executor&quot;: &quot;Run&quot;,
     &quot;Spring Boot.Unnamed.executor&quot;: &quot;Run&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;jdk.selected.JAVA_MODULE&quot;: &quot;21&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;D:/DaiHoc/DO AN NGANH/backend/social-service&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/DaiHoc/DO AN NGANH/backend/social-service/src/main/java/com/lpthinh/socialservice/config&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Global Libraries&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
     &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
     &quot;project.structure.side.proportion&quot;: &quot;0.7183908&quot;,
     &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
@@ -199,8 +320,18 @@
     <option name="notificationShown" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\DaiHoc\DO AN NGANH\backend\social-service\src\main\java\com\lpthinh\socialservice\config" />
+      <recent name="D:\DaiHoc\DO AN NGANH\backend\payment-service\src\main\java\com\lpthinh\paymentservice\config" />
+      <recent name="D:\DaiHoc\DO AN NGANH\backend\service-service\src\main\java\com\lpthinh\service\config" />
+      <recent name="D:\DaiHoc\DO AN NGANH\backend\rental-service\src\main\java\com\lpthinh\rentalservice\config" />
+    </key>
     <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.lpthinh.paymentservice.payment" />
+      <recent name="com.lpthinh.service.config" />
+      <recent name="com.lpthinh.socialservice.exception" />
+      <recent name="com.lpthinh.paymentservice.config" />
+      <recent name="com.lpthinh.paymentservice.exception" />
+      <recent name="com.lpthinh.identityservice.configuration" />
     </key>
   </component>
   <component name="RunAnythingCache">
@@ -220,7 +351,7 @@
       </set>
     </option>
   </component>
-  <component name="RunManager" selected="Spring Boot.IdentityService">
+  <component name="RunManager" selected="Docker.docker-compose.yml.zipkin: Compose Deployment">
     <configuration name="FaceApplication" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.lpthinh.face_identity.FaceApplication" />
       <module name="identity-service" />
@@ -311,15 +442,35 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="SocialServiceApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <configuration name="SocialService" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
       <module name="social-service" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.lpthinh.socialservice.SocialServiceApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="docker-compose.yml" temporary="true">
+      <deployment type="docker-compose.yml">
+        <settings />
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="docker-compose.yml.zipkin: Compose Deployment" type="docker-deploy" factoryName="docker-compose.yml" temporary="true" server-name="Docker">
+      <deployment type="docker-compose.yml">
+        <settings>
+          <option name="services">
+            <list>
+              <option value="zipkin" />
+            </list>
+          </option>
+          <option name="sourceFilePath" value="docker-compose.yml" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Application.FaceApplication" />
+      <item itemvalue="Docker.docker-compose.yml.zipkin: Compose Deployment" />
       <item itemvalue="Spring Boot.ConfigServer" />
       <item itemvalue="Spring Boot.DiscoveryServer" />
       <item itemvalue="Spring Boot.Gateway" />
@@ -329,8 +480,13 @@
       <item itemvalue="Spring Boot.PaymentService" />
       <item itemvalue="Spring Boot.RentalService" />
       <item itemvalue="Spring Boot.ServiceService" />
-      <item itemvalue="Spring Boot.SocialServiceApplication" />
+      <item itemvalue="Spring Boot.SocialService" />
     </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Docker.docker-compose.yml.zipkin: Compose Deployment" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -481,6 +637,25 @@
       <workItem from="1728162371295" duration="6472000" />
       <workItem from="1728193291039" duration="17014000" />
       <workItem from="1728241383059" duration="2710000" />
+      <workItem from="1728282615215" duration="14043000" />
+      <workItem from="1728310101693" duration="5541000" />
+      <workItem from="1728370062780" duration="6804000" />
+      <workItem from="1728393479039" duration="7889000" />
+      <workItem from="1728451942527" duration="3947000" />
+      <workItem from="1728538651843" duration="13761000" />
+      <workItem from="1728557851543" duration="2366000" />
+      <workItem from="1728560682764" duration="46875000" />
+      <workItem from="1728666027341" duration="287000" />
+      <workItem from="1728666797424" duration="3581000" />
+      <workItem from="1728671162393" duration="8447000" />
+      <workItem from="1728699190377" duration="4000" />
+      <workItem from="1728699367001" duration="6000" />
+      <workItem from="1728699400314" duration="32000" />
+      <workItem from="1728699469989" duration="8000" />
+      <workItem from="1728699549722" duration="1000" />
+      <workItem from="1728699663578" duration="64000" />
+      <workItem from="1728699804008" duration="13196000" />
+      <workItem from="1728828351889" duration="4214000" />
     </task>
     <servers />
   </component>
@@ -508,14 +683,19 @@
           <properties class="org.hibernate.MappingException" package="org.hibernate" />
           <option name="timeStamp" value="1" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/api-gateway/src/main/java/com/lpthinh/gateway/identity/IdentityClient.java</url>
-          <line>12</line>
-          <properties class="com.lpthinh.gateway.identity.IdentityClient" method="introspect">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="4" />
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.ClassNotFoundException" package="java.lang" />
+          <option name="timeStamp" value="5" />
+        </breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/rental-service/src/main/java/com/lpthinh/rentalservice/auth/AuthService.java</url>
+          <line>13</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/rental-service/src/main/java/com/lpthinh/rentalservice/auth/AuthService.java</url>
+          <line>16</line>
+          <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

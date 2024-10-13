@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -25,21 +26,20 @@ public class InvoiceService {
 
     public Integer create(InvoiceRequest request) {
         var invoice = mapper.toInvoice(request);
-        invoice.setCreatedAt(LocalDateTime.now());
-        invoice.setState(InvoiceState.PENDING);
+        invoice.setState(InvoiceState.UNPAID);
         return this.repository.save(invoice).getId();
     }
 
     public void createByAgreements() {
-        var agreements = this.rentalClient.getAgreements();
-        for (var agreement : agreements) {
-            InvoiceRequest request = new InvoiceRequest(
-                    null,
-                    null,
-                    LocalDate.now().getMonthValue(),
-                    agreement.id());
-            this.create(request);
-        }
+//        var agreements = this.rentalClient.getAgreements();
+//        for (var agreement : agreements) {
+//            InvoiceRequest request = new InvoiceRequest(
+//                    null,
+//                    null,
+//                    LocalDate.now().getMonthValue(),
+//                    agreement.id());
+//            this.create(request);
+//        }
     }
 
     public void updateAmount(Integer id) {
@@ -48,13 +48,23 @@ public class InvoiceService {
                 .orElseThrow(() -> new InvoiceNotFoundException("Invoice not found with ID:: " + id));
 
         var serviceResponse = serviceClient.getByInvoiceId(invoice.getId());
-        var agreement = rentalClient.getAgreementById(invoice.getAgreementId());
-        Long total = agreement.housePrice();
-        for (ServiceResponse service : serviceResponse) {
-            total = total + service.category().price() * service.quantity();
-        }
-
-        invoice.setAmount(total);
+//        var agreement = rentalClient.getAgreementById(invoice.getAgreementId());
+//        var start_date = agreement.startDate();
+//        Long total = agreement.housePrice();
+//        if (start_date.getMonth() == LocalDate.now().getMonth() &&
+//                start_date.getYear() == LocalDate.now().getYear()) {
+//
+//            int totalDays = LocalDate.of(start_date.getYear(), start_date.getMonthValue(), 1).lengthOfMonth();
+//            int usedDays = totalDays - start_date.getDayOfMonth() + 1;
+//            // Calculate the proportional amount
+//            total = total * usedDays / totalDays;
+//        }
+//
+//        for (ServiceResponse service : serviceResponse) {
+//            total = total + service.category().price() * service.quantity();
+//        }
+//
+//        invoice.setAmount(total);
 
         this.repository.save(invoice);
     }
@@ -65,34 +75,39 @@ public class InvoiceService {
                 .orElseThrow(() -> new InvoiceNotFoundException("Invoice not found with ID:: " + id));
         invoice.setState(InvoiceState.valueOf(state.toUpperCase()));
 
-        this.updateAmount(id);
         this.repository.save(invoice);
     }
 
     public List<InvoiceResponse> findAll(Map<String, String> params) {
-        var invoices = repository.findAll().stream().peek(invoice -> {
-            var agreement = this.rentalClient.getAgreementById(invoice.getAgreementId());
-            invoice.setHouseName(agreement.houseName());
-        });
+        var invoices = repository.findAll();
 
-
-        if (params.get("month") != null) {
-            return invoices
-                    .filter(item -> item.getMonth() == InvoiceMonth.valueOf(params.get("month").toUpperCase()))
-                    .map(mapper::toInvoiceResponse)
-                    .collect(Collectors.toList());
+        if (params.get("service-id") != null) {
+            invoices = invoices
+                    .stream()
+                    .filter(item -> item.getServiceId() == Long.parseLong(params.get("service-id")))
+                    .toList();
         }
 
         if (params.get("state") != null) {
-            return invoices
+            invoices = invoices
+                    .stream()
                     .filter(item -> item.getState() == InvoiceState.valueOf(params.get("state").toUpperCase()))
-                    .map(mapper::toInvoiceResponse)
-                    .collect(Collectors.toList());
+                    .toList();
         }
 
         return invoices
+                .stream()
                 .map(mapper::toInvoiceResponse)
                 .collect(Collectors.toList());
+    }
+
+    public List<InvoiceResponse> findByServices(List<Long> serviceIds) {
+        List<Invoice> invoices = new ArrayList<>();
+        for (Long serviceId : serviceIds) {
+            var inv = this.repository.findByService(serviceId);
+            invoices.add(inv);
+        }
+        return invoices.stream().map(mapper::toInvoiceResponse).collect(Collectors.toList());
     }
 
 //    public InvoiceResponse findById(Integer id) {
@@ -115,13 +130,6 @@ public class InvoiceService {
         return this.repository
                 .findById(id)
                 .stream()
-                .peek(item -> {
-                    var agreement = rentalClient.getAgreementById(item.getAgreementId());
-                    var serviceResponse = serviceClient.getByInvoiceId(item.getId());
-                    item.setHouseName(agreement.houseName());
-                    item.setHousePrice(agreement.housePrice());
-                    item.setServices(serviceResponse);
-                })
                 .findFirst()
                 .orElseThrow(() -> new InvoiceNotFoundException("Invoice not found with ID:: " + id));
     }
@@ -139,12 +147,6 @@ public class InvoiceService {
     }
 
     private void mergeInvoice(Invoice invoice, InvoiceRequest request) {
-        if (request.agreementId() != null) {
-            invoice.setAgreementId(request.agreementId());
-        }
-        if (request.month() != null) {
-            invoice.setMonth(InvoiceMonth.values()[request.month() - 1]);
-        }
         if (request.amount() != null) {
             invoice.setAmount(request.amount());
         }

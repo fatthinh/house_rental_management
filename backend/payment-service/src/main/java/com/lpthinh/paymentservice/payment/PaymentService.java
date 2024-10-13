@@ -1,10 +1,9 @@
 package com.lpthinh.paymentservice.payment;
 
 import com.lpthinh.paymentservice.invoice.Invoice;
-import com.lpthinh.paymentservice.invoice.InvoiceRequest;
 import com.lpthinh.paymentservice.invoice.InvoiceService;
 import com.lpthinh.paymentservice.notification.NotificationProducer;
-import com.lpthinh.paymentservice.notification.PaymentNotificationRequest;
+import com.lpthinh.paymentservice.notification.NotificationRequest;
 import com.stripe.Stripe;
 import com.stripe.exception.StripeException;
 import com.stripe.model.Customer;
@@ -62,12 +61,13 @@ public class PaymentService {
         PaymentIntent paymentIntent = PaymentIntent.retrieve(request.paymentIntentId());
         paymentIntent.confirm(params);
 
-
-        Payment payment = this.create(new PaymentRequest(paymentIntent.getAmount(), "visa", paymentIntent.getId(), request.invoiceId()));
+        // new payment
+        Payment payment = this.create(new PaymentRequest(paymentIntent.getAmount(), "visa", paymentIntent.getId(), request.invoices().getLast()));
         payment.setStatus(PaymentStatus.SUCCESS);
         this.paymentRepository.save(payment);
-        this.invoiceService.changeState(request.invoiceId(), "paid");
-        Invoice invoice = this.invoiceService.findById(request.invoiceId());
+        for (Integer inv : request.invoices()) {
+            this.invoiceService.changeState(inv, "paid");
+        }
 
         // send notification
         Map<String, Object> details = new HashMap<>();
@@ -75,11 +75,11 @@ public class PaymentService {
         details.put("transaction", paymentIntent.getId());
 
         notificationProducer.sendNotification(
-                new PaymentNotificationRequest(
+                new NotificationRequest(
                         details,
                         "admin",
-                        "Phòng" + invoice.getHouseName(),
-                        "Thanh toán hóa đơn tháng " + invoice.getMonth()
+                        request.customer(),
+                        "Thanh toán hóa đơn"
                 )
         );
 

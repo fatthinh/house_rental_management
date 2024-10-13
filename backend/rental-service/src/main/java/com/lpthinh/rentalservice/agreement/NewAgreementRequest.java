@@ -15,6 +15,7 @@ public record NewAgreementRequest(
         String hometown,
         Long deposit,
         String startDate,
-        Integer houseId
+        Integer houseId,
+        String email
 ) {
 }

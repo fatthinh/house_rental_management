@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface ChatRepository extends MongoRepository<Chat, String> {
 
-    @Query("{ '$or': [ { 'first': ?0 }, { 'second': ?0 } ] }")
+    @Query("{ 'users': ?0 }")
     List<Chat> findMyChats(String userId);
 }

@@ -5,13 +5,14 @@ import { icons } from '@/constants';
 import PostCard from '@/components/PostCard';
 import { router } from 'expo-router';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Fragment, useEffect } from 'react';
-import { useAppDispatch } from '@/hooks/redux';
+import React, { Fragment, useEffect, useRef } from 'react';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { authSlice } from '@/redux/slides/authSlice';
 
 export default function Home() {
-  const dispatch = useAppDispatch()
+  const user = useAppSelector((state) => state.auth.user)
 
+  const dispatch = useAppDispatch()
 
   const signOut = async () => {
     await AsyncStorage.removeItem("token");
@@ -43,7 +44,7 @@ export default function Home() {
           <Fragment>
             <View className="flex flex-row items-center justify-between my-2">
               <Text className="text-xl font-JakartaExtraBold">
-                Chào Thịnh    👋
+                Chào {user?.name.split(" ").slice(-1)}    👋
               </Text>
               <TouchableOpacity
                 className="justify-center items-center w-10 h-10 rounded-full bg-white"
